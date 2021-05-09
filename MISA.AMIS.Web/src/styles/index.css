@@ -1,0 +1,40 @@
+@import "../styles/layouts/Navbar.css";
+@import "../styles/layouts/Header.css";
+@import "../styles/layouts/Content.css";
+
+.block-select {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  text-transform: none;
+  text-decoration: none;
+  font-family: NotoSans-Regular;
+  font-size: 13px;
+}
+
+.main {
+  width: calc(100% - 178px);
+  display: inline-block;
+}
+
+@font-face {
+  font-family: "NotoSans-Regular";
+  src: url("../assets/fonts/NotoSans-Regular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "NotoSans-Bold";
+  src: url("../assets/fonts/NotoSans-Bold.ttf") format("opentype");
+}
+@font-face {
+  font-family: "NotoSans-Italic";
+  src: url("../assets/fonts/NotoSans-Italic.ttf") format("opentype");
+}
