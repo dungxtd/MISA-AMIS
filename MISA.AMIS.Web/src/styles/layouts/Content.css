@@ -205,6 +205,8 @@ table thead th {
   cursor: pointer;
   flex: 1;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
 }
 .wrap-edit-icon {
   display: flex;
@@ -232,7 +234,6 @@ table thead th {
   position: absolute;
   height: 45px;
   background-color: #ffffff;
-  z-index: 99;
   width: calc(100% - 238px);
   bottom: 0px;
   display: flex;

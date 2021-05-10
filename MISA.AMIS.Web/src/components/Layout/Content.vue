@@ -1,26 +1,23 @@
 <template>
   <div>
-    <EmployeeList :key="componentKey" @reloadComponent="reloadComponent" />
+    <EmployeeList />
+    <!-- <EmployeeDetail /> -->
   </div>
 </template>
 
 <script>
 import EmployeeList from "../pages/EmployeeList";
+// import EmployeeDetail from "../pages/EmployeeDetail";
 export default {
   name: "Content",
   data() {
-    return {
-      componentKey: 0,
-    };
+    return {};
   },
   components: {
     EmployeeList,
+    // EmployeeDetail,
   },
-  methods: {
-    reloadComponent() {
-      this.componentKey++;
-    },
-  },
+  methods: {},
 };
 </script>
 <style></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="nav_bar">
     <div class="logo-box">
       <div class="toggle-icon"></div>
       <div class="amis-logo"></div>

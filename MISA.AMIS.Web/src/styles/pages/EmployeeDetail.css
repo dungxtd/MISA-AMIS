@@ -1,0 +1,134 @@
+.detail {
+  z-index: 999;
+}
+.dialog-model {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.4;
+  z-index: 10;
+}
+.dialog-content {
+  position: fixed;
+  border-radius: 5px;
+  width: 70vw;
+  background-color: #fff;
+  left: calc(50% - 70vh);
+  top: calc(50% - 46vh);
+  z-index: 10;
+}
+.dialog-header {
+  position: relative;
+  height: 50px;
+  line-height: 60px;
+  padding-left: 16px;
+  display: flex;
+  font-size: 20px;
+  padding-bottom: 10px;
+  justify-content: space-between;
+}
+.dialog-body {
+  padding: 0 16px 16px 16px;
+  height: 70vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+.dialog-footer {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background-color: #e9ebee;
+  border-radius: 0 0 5px 5px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 24px;
+  box-sizing: border-box;
+}
+.dialog-header {
+  display: flex;
+  align-items: space-between;
+}
+/* ------------------------------- */
+.customer {
+  display: -webkit-inline-box;
+  /* margin: auto; */
+  margin-top: auto;
+  padding-left: 40px;
+  font-size: 15px;
+  font-family: notoSans-Regular;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* padding: 0; */
+  margin: auto;
+}
+.provider {
+  display: -webkit-inline-box;
+  /* margin-left: 30px; */
+  margin-top: auto;
+  padding-left: 20px;
+  font-size: 15px;
+  font-family: notoSans-Regular;
+}
+.tit {
+  margin-left: 10px;
+}
+.right-header {
+  float: right;
+}
+.icon-help {
+  width: 30px;
+  height: 30px;
+}
+.icon-cancel {
+  width: 30px;
+  height: 30px;
+}
+.left-header {
+  font-family: NotoSans-Bold;
+}
+.right-header {
+  display: flex;
+  align-items: center;
+}
+.icon-help {
+  background-position: -86px -140px;
+  margin-right: 6px;
+}
+.icon-cancel {
+  background-position: -140px -140px;
+  margin-right: 6px;
+}
+/* ---------------- */
+.first-inf {
+  flex: 1;
+}
+.second-inf {
+  flex: 1;
+}
+/* ---------------- */
+.flex {
+  display: flex;
+}
+.flex-1 {
+  flex: 1;
+}
+.label {
+  font-weight: bold;
+  font-size: 15px;
+  margin: 5px 10px;
+}
+.mgr10 {
+  margin-right: 10px;
+}
+.width95 {
+  width: 95% !important;
+}
+.width97 {
+  width: 98% !important;
+}

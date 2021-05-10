@@ -137,6 +137,7 @@ input.filter-input-label::placeholder {
   border-top: 12px solid #2ca01c;
   position: absolute;
   bottom: -16px;
+  box-sizing: content-box;
 }
 .header-right .category-cover {
   align-items: center;
@@ -155,6 +156,7 @@ input.filter-input-label::placeholder {
   border-top: 12px solid #2ca01c;
   position: absolute;
   bottom: -16px;
+  box-sizing: content-box;
 }
 .header-right .category-cover:hover > .category-icon {
   background-position: -558px -66px;

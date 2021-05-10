@@ -46,7 +46,7 @@
             src="https://id.misa.com.vn/image/getavatar?userId=c5b890cb-e9a5-4966-9e2c-2aa6813eaf70&width=32&height=32"
           />
         </div>
-        <div class="user-name">Nguyễn Quang Minh</div>
+        <div class="user-name">Tạ Đình Dũng</div>
         <div class="ic ic-max extend-icon"></div>
       </div>
     </div>
@@ -57,4 +57,10 @@ export default {
   name: "Header",
 };
 </script>
-<style></style>
+<style>
+*,
+::after,
+::before {
+  box-sizing: content-box;
+}
+</style>
