@@ -10,21 +10,21 @@
           <div class="ic ic-max header-branch-icon"></div>
         </div>
       </div>
-      <!-- <div class="header-current">
+      <div class="header-current">
         <div class="header-current-icon"></div>
         <div class="header-current-text">DC-01</div>
-      </div> -->
+      </div>
     </div>
     <div class="header-right">
-      <!-- <div class="filter-input">
+      <div class="filter-input">
         <input
           type="text"
           placeholder="Nhập từ khóa tìm kiếm"
           class="filter-input-label"
         />
         <div class="ic ic-max filter-input-icon"></div>
-      </div> -->
-      <!-- <div class="category-cover">
+      </div>
+      <div class="category-cover">
         <div class="ic ic-max category-icon"></div>
       </div>
       <div class="option-cover setting-cover">
@@ -35,7 +35,7 @@
       </div>
       <div class="option-cover help-cover">
         <div class="ic ic-max help-icon"></div>
-      </div> -->
+      </div>
       <div class="option-cover bell-cover">
         <div class="ic ic-max bell-icon"></div>
       </div>

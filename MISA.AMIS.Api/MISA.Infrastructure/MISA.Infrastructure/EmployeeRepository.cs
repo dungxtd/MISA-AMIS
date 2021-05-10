@@ -26,7 +26,6 @@ namespace MISA.Infrastructure.MISA.Infrastructure
         }
         public IEnumerable<Employee> GetPaging(int pageIndex, int pageSize, string filter)
         {
-
             using (dbConnection = new MySqlConnection(connectionString))
             {
                 DynamicParameters dynamicParameters = new DynamicParameters();
@@ -35,6 +34,17 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 dynamicParameters.Add("@filter", filter);
                 var employees = dbConnection.Query<Employee>("Proc_EmployeeFilter", param: dynamicParameters, commandType: CommandType.StoredProcedure);
                 return employees;
+            }
+        }
+        public IEnumerable<int> GetEmployeeCount(string filter)
+        {
+
+            using (dbConnection = new MySqlConnection(connectionString))
+            {
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@filter", filter);
+                var count = dbConnection.Query<int>("Proc_EmployeeFilterCount", param: dynamicParameters, commandType: CommandType.StoredProcedure);
+                return count;
             }
         }
     }

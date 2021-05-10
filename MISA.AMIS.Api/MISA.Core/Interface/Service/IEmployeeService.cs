@@ -14,5 +14,6 @@ namespace MISA.Core.Interface.Service
     public interface IEmployeeService : IBaseService<Employee>
     {
         IEnumerable<Employee> GetPaging(int pageIndex, int pageSize, string filter);
+        IEnumerable<int> GetEmployeeCount(string filter);
     }
 }

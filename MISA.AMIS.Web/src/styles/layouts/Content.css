@@ -164,7 +164,7 @@ input.filter-employee-input-label:focus {
 }
 .list {
   overflow: auto;
-  height: calc(100vh - 211px);
+  height: calc(100vh - 225px);
 }
 td {
   border: 1px solid #afafaf;
@@ -230,7 +230,7 @@ table thead th {
 
 .footer-list {
   position: absolute;
-  height: 32px;
+  height: 45px;
   background-color: #ffffff;
   z-index: 99;
   width: calc(100% - 238px);
@@ -256,6 +256,7 @@ table thead th {
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
+  margin: 0 4px;
 }
 .nb-page {
   vertical-align: middle;
@@ -265,4 +266,5 @@ table thead th {
   border-radius: 2px;
   border: 1px solid #8d9096;
   cursor: pointer;
+  margin: 0 2px;
 }

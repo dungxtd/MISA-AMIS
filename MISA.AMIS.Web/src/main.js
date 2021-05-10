@@ -8,6 +8,33 @@ Vue.filter("formatDate", function (value) {
     return moment(String(value)).format("MM/DD/YYYY");
   }
 });
+Vue.filter("formatIndexPagePre", function (value) {
+  if (value) {
+    value = value - 1;
+    return value;
+  }
+});
+Vue.filter("formatIndexPageNext", function (value) {
+  if (value) {
+    value = value + 1;
+    return value;
+  }
+});
+Vue.filter("formatGender", function (value) {
+  if (value == 0) {
+    return "Nam";
+  }
+  if (value == 1) {
+    return "Nữ";
+  }
+  if (value == 2) {
+    return "Khác";
+  }
+  else {
+    console.log("sai định dạng giới tính");
+    return null;
+  }
+});
 new Vue({
   render: h => h(App),
 }).$mount('#app')

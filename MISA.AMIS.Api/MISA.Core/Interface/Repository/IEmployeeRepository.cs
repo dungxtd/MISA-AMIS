@@ -12,5 +12,6 @@ namespace MISA.Core.Interface.Repository
         public bool CheckEmployeeCodeExits(String employeeCode);
         public bool CheckEmployeePhoneNumberExits(String phoneNumber);
         IEnumerable<Employee> GetPaging(int pageIndex, int pageSize,string filter);
+        public IEnumerable<int> GetEmployeeCount(string filter);
     }
 }

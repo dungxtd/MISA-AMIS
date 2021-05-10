@@ -51,5 +51,10 @@ namespace MISA.Core.Service
             var employees = _employeeRepository.GetPaging(pageIndex, pageSize, filter);
             return employees;
         }
+        public IEnumerable<int> GetEmployeeCount(string filter)
+        {
+            var count = _employeeRepository.GetEmployeeCount(filter);
+            return count;
+        }
     }
 }

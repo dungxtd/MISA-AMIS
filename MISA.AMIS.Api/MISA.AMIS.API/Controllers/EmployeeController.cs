@@ -31,5 +31,18 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
+        [HttpGet("count-paging")]
+        public IActionResult GetEmployeeCount(string filter)
+        {
+            var count = _employeeService.GetEmployeeCount(filter);
+            if (count.Count() > 0)
+            {
+                return Ok(count);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
     }
 }
