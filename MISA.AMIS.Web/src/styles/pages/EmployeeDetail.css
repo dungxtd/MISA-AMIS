@@ -18,13 +18,12 @@
   max-width: 900px;
   width: 900px;
   background-color: #fff;
-  left: calc(50% - 22vw);
-  top: calc(50% - 33vh);
+  right: calc(22vw);
+  bottom: calc(16vh);
   z-index: 10;
   /* position: relative; */
-  transition: all .2s;
+  transition: all 0.2s;
   z-index: 200;
-
 }
 .dialog-header {
   position: relative;
@@ -41,6 +40,7 @@
   height: 50vh;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 }
 .dialog-footer {
   display: flex;
@@ -142,8 +142,8 @@ input[type="radio"] {
 .width97 {
   width: 98% !important;
 }
-.cancel-botton{
-  transition: all .2s ease;
+.cancel-botton {
+  transition: all 0.2s ease;
   border: 0;
   cursor: pointer;
   position: relative;
@@ -160,7 +160,7 @@ input[type="radio"] {
   overflow: visible;
 }
 .accept-btn1 {
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   border: 0;
   cursor: pointer;
   position: relative;
@@ -181,7 +181,7 @@ input[type="radio"] {
   padding: 12px 20px;
   background-color: #2ca01c !important;
   color: #fff !important;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   border: 0;
   cursor: pointer;
   position: relative;
@@ -195,7 +195,7 @@ input[type="radio"] {
   position: relative;
   color: inherit;
   display: inline-block;
-  transition: all .25s ease;
+  transition: all 0.25s ease;
   white-space: nowrap;
   font-size: 13px;
   line-height: 13px;

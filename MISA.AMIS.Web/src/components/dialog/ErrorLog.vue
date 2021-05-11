@@ -1,0 +1,90 @@
+<template>
+  <div>
+    <div class="log-model ">
+      <div class="log-body">
+        <div class="log-content">
+          <div class="ic icon-warning" style="margin: auto 0;"></div>
+          <div
+            class="text-warning"
+            style="font-size: 13px;margin: auto; color:#111 !important;"
+          >
+            {{ mesError }}
+          </div>
+        </div>
+        <div class="log-footer" style="flex: 3;">
+          <div @click="cancelError">Huỷ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  props: {
+    showErrorLog: { type: Boolean, default: false },
+    mesError: { type: String, default: "" },
+  },
+  methods: {
+    cancelError() {
+      this.$emit("hideErrorLog");
+    },
+  },
+};
+</script>
+<style scope>
+.log-model {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 999;
+  transition: all 0.25s ease;
+  opacity: 1;
+}
+.log-content {
+  display: flex;
+  margin: auto;
+  flex: 7;
+  /* display: flex; */
+  padding: 0;
+  vertical-align: middle;
+}
+.log-body {
+  height: 200px;
+  width: 400px;
+  top: calc(50% - 100px);
+  left: calc(50% - 200px);
+  background-color: #fff;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+.icon-warning {
+  background-position: -24px -954px !important;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+}
+.log-footer div {
+  font-weight: 600;
+  padding: 15px 40px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: auto;
+  transition: all 0.25s ease;
+  background-color: #35bf22;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 13px;
+  line-height: 13px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+</style>

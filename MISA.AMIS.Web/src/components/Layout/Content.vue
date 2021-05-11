@@ -1,7 +1,6 @@
 <template>
   <div>
     <EmployeeList />
-    <!-- <EmployeeDetail /> -->
   </div>
 </template>
 

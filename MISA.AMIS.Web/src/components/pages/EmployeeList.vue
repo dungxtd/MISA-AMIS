@@ -21,13 +21,10 @@
               placeholder="Tìm theo mã, tên nhân viên"
               class="filter-input-label filter-employee-input-label"
             />
-            <div
-              v-on:click="searchAndArrangePage()"
-              class="ic ic-max filter-input-icon"
-            ></div>
+            <div class="ic ic-max filter-input-icon"></div>
           </div>
           <div v-on:click="loadData()" class="ic ic-max button-refresh"></div>
-          <div class="ic ic-max button-excel" @click="exportFile()" ></div>
+          <div class="ic ic-max button-excel" @click="exportFile()"></div>
         </div>
       </div>
       <div class="list">
@@ -63,10 +60,14 @@
               <td class="t-table">{{ employee.bankAccountNumber }}</td>
               <td class="t-table">{{ employee.bankName }}</td>
               <td class="t-table">{{ employee.bankBranchName }}</td>
-              <td><MoreDialog 
-                  :idDelete = "employee.employeeId"    
-                  @editClick = "editClick(employee.employeeId)"
-                  @loadData = "loadData"/></td>
+              <td>
+                <MoreDialog
+                  :idDelete="employee.employeeId"
+                  :codeDelete="employee.employeeCode"
+                  @editClick="editClick(employee.employeeId)"
+                  @loadData="loadData"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
@@ -110,7 +111,15 @@
       :isShow="isShowDetail"
       :employee="employee"
       @hideDetailPageParent="hideDetailPageParent"
-      :formMode = "formMode"
+      :formMode="formMode"
+      @showErrorLog="showErrorLog"
+    />
+    <!-- :showErrorLog="showErrorLog"
+      :mesError="mesError" -->
+    <ErrorLog
+      v-if="isShowErrorLog == true"
+      @hideErrorLog="hideErrorLog"
+      :mesError="mesError"
     />
   </div>
 </template>
@@ -118,13 +127,14 @@
 import axios from "axios";
 import EmployeeDetail from "./EmployeeDetail";
 import MoreDialog from "../dialog/More";
-// import ClickOutside from 'vue-click-outside'
-
+import ErrorLog from "../dialog/ErrorLog";
 export default {
   name: "EmployeeList",
+
   components: {
     EmployeeDetail,
-    MoreDialog
+    MoreDialog,
+    ErrorLog,
   },
   //   Tại dữ liệu khi mở page
   created() {
@@ -256,17 +266,31 @@ export default {
       this.pageIndex = this.maxPage;
       this.pageIndexTemp = this.maxPage - 1;
     },
-    clickOutside() {
-      alert(111111111);
-    },
-    showPopupDetailParent() {
+    //Ham lay so ban ghi lon nhat va hien cua so them
+    async showPopupDetailParent() {
       this.formMode = "add";
-      this.employee = Object.create(null);
+      this.employee = {};
+      this.employee.employeeCode = "";
+      var aipUrl = "https://localhost:44368/api/v1/Employees/getMaxCode";
+      await axios
+        .get(aipUrl)
+        .then((res) => {
+          var temp = res.data[0].split("-");
+          this.employee.employeeCode =
+            temp[0] + "-" + (parseInt(temp[1]) + 1).toString();
+          this.employee.employeeCode;
+          console.log(this.employee.employeeCode);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       this.isShowDetail = true;
     },
+    // Ham an cua so dialog
     hideDetailPageParent() {
       this.isShowDetail = false;
     },
+    //Ham lay thong tin nhan vien dua len form sua
     async editClick(employeeId) {
       // Lấy id của bản ghi được chọn
 
@@ -277,8 +301,14 @@ export default {
         .then((res) => {
           this.employee = res.data;
           console.log(this.employee);
-          this.employee.dateOfBirth = this.employee.dateOfBirth.substring(0,10);
-          this.employee.identityDate = this.employee.identityDate.substring(0,10);
+          this.employee.dateOfBirth = this.employee.dateOfBirth.substring(
+            0,
+            10
+          );
+          this.employee.identityDate = this.employee.identityDate.substring(
+            0,
+            10
+          );
           console.log(this.employee);
         })
         .catch((err) => {
@@ -289,29 +319,40 @@ export default {
       //Hiển thị dialog
       this.isShowDetail = true;
     },
-    async exportFile(){
+    //Ham xuat ra file excel
+    async exportFile() {
       var apiUrl = "https://localhost:44368/api/v1/Employees/export";
       await axios({
         url: apiUrl,
-        method: 'GET',
-        responseType: 'blob',
-    }).then((response) => {
+        method: "GET",
+        responseType: "blob",
+      }).then((response) => {
         var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement('a');
+        var fileLink = document.createElement("a");
 
         fileLink.href = fileURL;
-        fileLink.setAttribute('download', 'data.xlsx');
+        fileLink.setAttribute("download", "data.xlsx");
         document.body.appendChild(fileLink);
 
         fileLink.click();
-    });
-    }
-
+      });
+    },
+    showErrorLog(errMsg) {
+      this.isShowErrorLog = true;
+      this.mesError = errMsg;
+    },
+    hideErrorLog() {
+      this.isShowErrorLog = false;
+    },
   },
   //
+  computed: {},
   //
   //   Theo dõi biến
   watch: {
+    inputFilter() {
+      if (this.inputFilter != "") this.searchAndArrangePage();
+    },
     pageSize() {
       this.searchAndArrangePage();
     },
@@ -350,10 +391,11 @@ export default {
       isScPage: false, // Page 2 là page hiện tại
       isThPage: false, // Page 3 là page hiện tại
       count: 0, // Biến đếm số bản ghi
-      pPopup: [0, 0], //
       isShowDetail: false, //biến ẩn hay hiện bảng detail
       employee: {}, //Biến chứa thông tin nhân viên hiển thị lên dialog
       formMode: "add", //Biến chứa thông tin thêm hay sửa gửi thị lên dialog
+      isShowErrorLog: false, //Bien chua thong tin hien thi cua so loi
+      mesError: "", ////Bien chua cau thong bao loi
     };
   },
 };
@@ -372,7 +414,7 @@ export default {
   z-index: 999;
   top: 179px;
 }
-.hide-more{
+.hide-more {
   display: none;
 }
 </style>

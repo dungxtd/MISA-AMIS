@@ -67,5 +67,20 @@ namespace MISA.AMIS.API.Controllers
             //return File(stream, "application/octet-stream", excelName);  
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
+
+        [HttpGet("getMaxCode")]
+        public IActionResult GetMaxCode()
+        {
+            var count = _employeeService.GetMaxCode();
+            if (count.Count() > 0)
+            {
+                return Ok(count);
+            }
+            else
+            {
+                return NoContent();
+            }
+
+        }
     }
 }

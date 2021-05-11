@@ -48,6 +48,15 @@ namespace MISA.Infrastructure.MISA.Infrastructure
             }
         }
 
+        public IEnumerable<String> GetMaxCode()
+        {
+
+            using (dbConnection = new MySqlConnection(connectionString))
+            {
+                var count = dbConnection.Query<String>("Proc_EmployeeGetMaxCode", commandType: CommandType.StoredProcedure);
+                return count;
+            }
+        }
 
     }
 }

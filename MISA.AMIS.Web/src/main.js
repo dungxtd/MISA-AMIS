@@ -35,6 +35,13 @@ Vue.filter("formatGender", function (value) {
     return null;
   }
 });
+Vue.directive('focus', {
+  // Khi phần tử liên quan được thêm vào DOM...
+  inserted: function (el) {
+    // Ta gán focus vào phần tử đó
+    el.focus()
+  }
+})
 new Vue({
   render: h => h(App),
 }).$mount('#app')

@@ -56,5 +56,10 @@ namespace MISA.Core.Service
             var count = _employeeRepository.GetEmployeeCount(filter);
             return count;
         }
+        public IEnumerable<String> GetMaxCode()
+        {
+            var count = _employeeRepository.GetMaxCode();
+            return count;
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace MISA.Core.Interface.Service
     {
         IEnumerable<Employee> GetPaging(int pageIndex, int pageSize, string filter);
         IEnumerable<int> GetEmployeeCount(string filter);
+        IEnumerable<String> GetMaxCode();
     }
 }

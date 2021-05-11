@@ -25,18 +25,33 @@
             <div class="flex-1 left-f-inf">
               <div class="flex">
                 <div class="flex flex-1">
-                  <div>
-                    <div class="label">Mã<div style="color: red; display: inline;"> *</div></div>
-                    <input type="text" v-model="employee.employeeCode" style="width: 95%"/>
+                  <div style="position: relative;">
+                    <div class="label">
+                      Mã
+                      <div style="color: red; display: inline;">*</div>
+                    </div>
+                    <input
+                      type="text"
+                      v-model="employee.employeeCode"
+                      style="width: 95%"
+                      v-bind:class="{ error: isValCode }"
+                      v-on:blur="checkValCode"
+                    />
+                    <div class="warning-text">Mã không được để trống.</div>
                   </div>
-                  <div class="flex-1">
-                    <div class="label">Tên<div style="color: red; display: inline;"> *</div></div>
+                  <div class="flex-1" style="position: relative;">
+                    <div class="label">
+                      Tên
+                      <div style="color: red; display: inline;">*</div>
+                    </div>
                     <input
                       type="text"
                       style="width: 83%;"
                       v-model="employee.employeeName"
-                      :class="{error : !nameIsValid}"
+                      v-bind:class="{ error: isValName }"
+                      v-on:blur="checkValName"
                     />
+                    <div class="warning-text">Tên không được để trống.</div>
                   </div>
                 </div>
                 <div class="flex flex-1">
@@ -49,20 +64,47 @@
                   <div class="flex-1">
                     <div class="label">Giới tính</div>
                     <div class="flex options">
-                      <input type="radio" id="male" name="gender" value="0"  v-model="employee.gender"/>
+                      <input
+                        type="radio"
+                        id="male"
+                        name="gender"
+                        value="0"
+                        v-model="employee.gender"
+                      />
                       <label for="male" class="margin0">Nam</label>
-                      <input type="radio" id="female" name="gender" value="1" v-model="employee.gender"/>
+                      <input
+                        type="radio"
+                        id="female"
+                        name="gender"
+                        value="1"
+                        v-model="employee.gender"
+                      />
                       <label for="female" class="margin0">Nữ</label>
-                      <input type="radio" id="other" name="gender" value="2" v-model="employee.gender"/>
+                      <input
+                        type="radio"
+                        id="other"
+                        name="gender"
+                        value="2"
+                        v-model="employee.gender"
+                      />
                       <label for="other" class="margin0">Khác</label>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="flex">
-                <div class="flex-1">
-                  <div class="label">Đơn vị<div style="color: red; display: inline;"> *</div></div>
-                  <select type="text" style="width: 90%;" v-model="employee.departmentId">
+                <div class="flex-1" style="position: relative;">
+                  <div class="label">
+                    Đơn vị
+                    <div style="color: red; display: inline;">*</div>
+                  </div>
+                  <select
+                    type="text"
+                    style="width: 90%;"
+                    v-model="employee.departmentId"
+                    v-bind:class="{ error: isValPss }"
+                    v-on:blur="checkValPss"
+                  >
                     <option value="11452b0c-768e-5ff7-0d63-eeb1d8ed8cef">
                       Phòng Nhân sự
                     </option>
@@ -79,6 +121,7 @@
                       Phòng Nghiên cứu
                     </option>
                   </select>
+                  <div class="warning-text">Vị trí không được để trống.</div>
                 </div>
                 <div class="flex flex-1">
                   <div class="mgr10 flex-1">
@@ -87,14 +130,22 @@
                   </div>
                   <div class="flex-1">
                     <div class="label">Ngày cấp</div>
-                    <input type="date" style="width: 90%;" v-model="employee.identityDate" />
+                    <input
+                      type="date"
+                      style="width: 90%;"
+                      v-model="employee.identityDate"
+                    />
                   </div>
                 </div>
               </div>
               <div class="flex">
                 <div class="flex-1">
                   <div class="label">Chức danh</div>
-                  <input type="text" style="width: 90%;" v-model="employee.employeePosition" />
+                  <input
+                    type="text"
+                    style="width: 90%;"
+                    v-model="employee.employeePosition"
+                  />
                 </div>
                 <div class="flex-1 ">
                   <div class="label">Nơi cấp</div>
@@ -146,7 +197,7 @@
           <div class="cancel-botton" @click="hideDetailPage()">Huỷ</div>
           <div class="flex">
             <div class="accept-btn1" @click="btnAddEdit">Cất</div>
-            <button  class="accept-btn2" @click="btnAddEdit">Cất và Thêm</button>
+            <div class="accept-btn2" @click="btnAddEdit">Cất và Thêm</div>
           </div>
         </div>
       </div>
@@ -154,102 +205,124 @@
   </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
+
 export default {
+  components: {},
   props: {
     isShow: { type: Boolean, default: false },
     employee: { type: Object, default: Object.create(null) },
-    formMode: { type: String, default: ""},
+    formMode: { type: String, default: "" },
+    // showErrorLog: { type: Boolean, default: false }, // Biến hiển thị cử sổ lỗi
+    // mesError: { type: String, default: "" }, // Câu thông báo lỗi
   },
   methods: {
+    //Ham an vao nut thoat
     hideDetailPage() {
       this.$emit("hideDetailPageParent");
+      this.isValCode = false;
+      this.isValName = false;
+      this.isValPss = false;
     },
-    btnAddEdit(){
-      this.addEmployee();
-    },
-    async addEmployee(){
-      var aipUrl =
-        "https://localhost:44368/api/v1/Employees/";
-      if(this.formMode == "add"){
-      await axios
-        .post(aipUrl, this.employee)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    //Ham an vao nut xong
+    btnAddEdit() {
+      this.checkValCode();
+      this.checkValName();
+      this.checkValPss();
+      this.errMsg = "";
+      if (this.isValCode) this.errMsg += "Mã, ";
+      if (this.isValName) this.errMsg += "Tên, ";
+      if (this.isValPss) this.errMsg += "Vị trí, ";
+      if (this.errMsg != "") this.errMsg += "không được để trống.";
+      if (!this.isValCode && !this.isValName && !this.isValPss) {
+        console.log("connect");
+        this.addEmployee();
+      } else {
+        this.$emit("showErrorLog", this.errMsg);
+        console.log("not connect");
       }
-      else {
+    },
+    //Goi ipa them nhan vien
+    async addEmployee() {
+      var aipUrl = "https://localhost:44368/api/v1/Employees/";
+      if (this.formMode == "add") {
         await axios
-        .put(aipUrl, this.employee)
-        .then((res) => {
-          console.log(res);
-          if(res.status == 200 ){
-            this.hideDetailPage();
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .post(aipUrl, this.employee)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        await axios
+          .put(aipUrl, this.employee)
+          .then((res) => {
+            console.log(res);
+            if (res.status == 200) {
+              this.hideDetailPage();
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
-
-    submitForm() {
-      const formIsValid =
-        this.codeIsValid &&
-        this.nameIsValid &&
-        this.positionIsValid
-      if (formIsValid) {
-        console.log("Form submit");
-      } else console.log("invalid form");
+    /* Kiểm tra input của ô employee code */
+    checkValCode() {
+      if (this.employee.employeeCode == "") {
+        this.isValCode = true;
+      } else this.isValCode = false;
     },
-    
+    /* Kiểm tra input của ô employee code */
+    checkValName() {
+      if (
+        this.employee.employeeName == undefined ||
+        this.employee.employeeName == ""
+      ) {
+        this.isValName = true;
+      } else this.isValName = false;
+    },
+    /* Kiểm tra input của ô employee code */
+    checkValPss() {
+      if (this.employee.departmentId == undefined) {
+        this.isValPss = true;
+      } else this.isValPss = false;
+    },
   },
-  computed: {
-    codeIsValid() {
-      return !!this.employee.employeeCode;
-    },
-    nameIsValid() {
-      return !!this.employee.employeeName;
-    },
-    positionIsValid() {
-      return !!this.employee.departmentId;
-    },
-    formIsValid() {
-      return (
-        this.nameIsValid &&
-        this.codeIsValid &&
-        this.positionIsValid
-      );
-    },
-  }
+  data() {
+    return {
+      isValCode: false, // Biến báo lỗi imployee code
+      isValName: false, // Biến báo lỗi imployee code
+      isValPss: false, // Biến báo lỗi imployee code
+      errMsg: "", //Biến chứa câu thông báo lỗi
+    };
+  },
+  watch: {},
+  computed: {},
 };
 </script>
 
 <style scoped>
-.cancel-botton:hover , .accept-btn1:hover, .accept-btn2:hover{
-  background-color:#babec5;
+.cancel-botton:hover,
+.accept-btn1:hover,
+.accept-btn2:hover {
+  background-color: #babec5;
 }
 input[type="text"],
 select[type="text"],
 input[type="date"] {
-    padding: 6px 10px;
-    /* width: 90%; */
-    /* padding: 6px 6px; */
-    /* outline: none; */
-    /* font-size: 15px; */
-    font-size: 13px;
-    height: 32px;
-    color: inherit;
-    position: relative;
-    padding: 6px 10px;
-    border-radius: 2px;
-    border: 1px solid #babec5;
-    box-sizing: border-box;
-    width: 100%;
-    outline: none;
+  padding: 6px 10px;
+  font-size: 13px;
+  height: 32px;
+  color: inherit;
+  position: relative;
+  padding: 6px 10px;
+  border-radius: 2px;
+  border: 1px solid #babec5;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
 }
 input[type="radio"] {
   margin: 5px;
@@ -262,14 +335,39 @@ label {
 .dialog-hide {
   display: none;
 }
-.options{
+.options {
   justify-content: space-around;
   padding-right: 83px;
 }
-.margin0{
+.margin0 {
   margin: auto 0;
 }
-.error{
-  border: 1px solid red;
+.error {
+  border: 1px solid red !important;
+}
+.warning-text {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% -50%);
+  font-size: 10px;
+  z-index: 20;
+  width: fit-content;
+  height: 16px;
+  text-align: center;
+  background: rgb(49, 49, 49);
+  padding: 0 5px;
+  border: 1px solid #111;
+  color: #fff;
+}
+.error:hover + .warning-text {
+  display: block;
+}
+input:focus {
+  border: 1px solid #2ca01c;
+}
+select:focus {
+  border: 1px solid #2ca01c;
 }
 </style>

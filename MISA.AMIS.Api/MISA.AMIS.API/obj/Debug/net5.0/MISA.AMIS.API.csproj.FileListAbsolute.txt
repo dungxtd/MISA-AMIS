@@ -141,3 +141,6 @@ C:\Users\dungxtd\Desktop\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.
 F:\tddung\dotnet\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.API\bin\Debug\net5.0\EPPlus.dll
 F:\tddung\dotnet\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.API\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
 F:\tddung\dotnet\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.API\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll
+C:\Users\dungxtd\Desktop\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.API\bin\Debug\net5.0\EPPlus.dll
+C:\Users\dungxtd\Desktop\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.API\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\dungxtd\Desktop\Bài tập nâng cao\MISA-AMIS\MISA.AMIS.Api\MISA.AMIS.API\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll
