@@ -198,23 +198,29 @@ table thead th {
   background-position: -884px -359px;
   flex: 1;
 }
-.edit-text {
-  width: 20px;
-  height: 20px;
-  color: #0075c0;
-  cursor: pointer;
-  flex: 1;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-}
 .wrap-edit-icon {
   display: flex;
   align-items: center;
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
+  position: relative;
 }
+.option {
+  width: max-content;
+  height: 100%;
+  /* right: inherit; */
+  background-color: white;
+  border: 1px solid;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  /* z-index: 10; */
+  z-index: 10;
+  height: max-content;
+  padding: 0;
+}
+/* ------------- */
 .check-box {
   border-left: 0;
 }

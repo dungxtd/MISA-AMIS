@@ -47,7 +47,7 @@ namespace MISA.Core.Entities
         ///<summary>
         ///Ngày cấp CMND
         /// </summary>
-        public string IdentityDate { get; set; }
+        public DateTime IdentityDate { get; set; }
 
         ///<summary>
         ///Nơi cấp CMND
@@ -63,11 +63,6 @@ namespace MISA.Core.Entities
         ///Địa chỉ
         /// </summary>
         public string Address { get; set; }
-
-        ///<summary>
-        ///Tên phòng ban
-        /// </summary>
-        public string DepartmentName { get; set; }
 
         ///<summary>
         ///Mã phòng ban

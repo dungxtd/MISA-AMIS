@@ -11,10 +11,6 @@
       </div>
     </div>
     <div class="main-content">
-      <div
-        v-bind:class="{ popup_delete: isActDeletePu }"
-        v-bind:style="{ left: pPopup[0] - 150 + 'px', top: pPopup[1] + 'px' }"
-      ></div>
       <div class="header-list">
         <div class="header-left"></div>
         <div class="header-right">
@@ -31,7 +27,7 @@
             ></div>
           </div>
           <div v-on:click="loadData()" class="ic ic-max button-refresh"></div>
-          <div class="ic ic-max button-excel"></div>
+          <div class="ic ic-max button-excel" @click="exportFile()" ></div>
         </div>
       </div>
       <div class="list">
@@ -67,30 +63,10 @@
               <td class="t-table">{{ employee.bankAccountNumber }}</td>
               <td class="t-table">{{ employee.bankName }}</td>
               <td class="t-table">{{ employee.bankBranchName }}</td>
-              <td class="t-table wrap-edit-icon">
-                <div class="edit-text" @click="editClick(employee.employeeId)">
-                  Sửa
-                  <div class="dropdown">
-                    <div
-                      class="ic ic-max-16 edit-icon dropdown-toggle"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    ></div>
-                    <ul
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <li class="dropdown-item" href="#">Action</li>
-                      <li class="dropdown-item" href="#">Another action</li>
-                      <li class="dropdown-item" href="#">
-                        Something else here
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
+              <td><MoreDialog 
+                  :idDelete = "employee.employeeId"    
+                  @editClick = "editClick(employee.employeeId)"
+                  @loadData = "loadData"/></td>
             </tr>
           </tbody>
         </table>
@@ -134,18 +110,21 @@
       :isShow="isShowDetail"
       :employee="employee"
       @hideDetailPageParent="hideDetailPageParent"
+      :formMode = "formMode"
     />
   </div>
 </template>
 <script>
 import axios from "axios";
 import EmployeeDetail from "./EmployeeDetail";
+import MoreDialog from "../dialog/More";
 // import ClickOutside from 'vue-click-outside'
 
 export default {
   name: "EmployeeList",
   components: {
     EmployeeDetail,
+    MoreDialog
   },
   //   Tại dữ liệu khi mở page
   created() {
@@ -277,19 +256,11 @@ export default {
       this.pageIndex = this.maxPage;
       this.pageIndexTemp = this.maxPage - 1;
     },
-    /* Hàm showPopupDelete */
-    showPopupDelete(e) {
-      this.isActDeletePu = true;
-      this.pPopup[0] = e.pageX;
-      this.pPopup[1] = e.pageY;
-      alert(this.pPopup[0] + " " + this.pPopup[1]);
-      // $popup_delete
-    },
     clickOutside() {
       alert(111111111);
     },
     showPopupDetailParent() {
-      this.formMode = true;
+      this.formMode = "add";
       this.employee = Object.create(null);
       this.isShowDetail = true;
     },
@@ -298,7 +269,6 @@ export default {
     },
     async editClick(employeeId) {
       // Lấy id của bản ghi được chọn
-      this;
 
       //Gọi API lấy id thông tin nhân viên
       var apiUrl = "https://localhost:44368/api/v1/Employees/" + employeeId;
@@ -307,15 +277,36 @@ export default {
         .then((res) => {
           this.employee = res.data;
           console.log(this.employee);
+          this.employee.dateOfBirth = this.employee.dateOfBirth.substring(0,10);
+          this.employee.identityDate = this.employee.identityDate.substring(0,10);
+          console.log(this.employee);
         })
         .catch((err) => {
           console.log(err);
         });
       //Lấy trạng thái là form sửa
-      this.formMode = false;
+      this.formMode = "edit";
       //Hiển thị dialog
       this.isShowDetail = true;
     },
+    async exportFile(){
+      var apiUrl = "https://localhost:44368/api/v1/Employees/export";
+      await axios({
+        url: apiUrl,
+        method: 'GET',
+        responseType: 'blob',
+    }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'data.xlsx');
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+    });
+    }
+
   },
   //
   //
@@ -359,11 +350,10 @@ export default {
       isScPage: false, // Page 2 là page hiện tại
       isThPage: false, // Page 3 là page hiện tại
       count: 0, // Biến đếm số bản ghi
-      isActDeletePu: false, //Biến hiển thị ô xoá
       pPopup: [0, 0], //
       isShowDetail: false, //biến ẩn hay hiện bảng detail
       employee: {}, //Biến chứa thông tin nhân viên hiển thị lên dialog
-      formMode: null, //Biến chứa thông tin thêm hay sửa gửi thị lên dialog
+      formMode: "add", //Biến chứa thông tin thêm hay sửa gửi thị lên dialog
     };
   },
 };
@@ -381,5 +371,8 @@ export default {
   background: black;
   z-index: 999;
   top: 179px;
+}
+.hide-more{
+  display: none;
 }
 </style>
