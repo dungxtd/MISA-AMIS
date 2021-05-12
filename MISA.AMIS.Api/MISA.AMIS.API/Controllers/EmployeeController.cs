@@ -78,22 +78,7 @@ namespace MISA.AMIS.API.Controllers
             // query data from database  
             await Task.Yield();
             var listEmployee = _employeeService.GetAll();
-            var listDepartment = _departmentService.GetAll();
             var stream = new MemoryStream();
-            var listJoin = listDepartment.Join(listEmployee,
-                e => e.DepartmentId, //outerKeySelector 
-                d => d.DepartmentId,     //innerKeySelector
-            (de, em) => new // resultSelector 
-            {
-                EmployeeCode = em.EmployeeCode,
-                EmployeeName = em.EmployeeName,
-                Gender = em.Gender,
-                DateOfBirth = em.DateOfBirth,
-                EmployeePosition = em.EmployeePosition,
-                DepartmentName = de.DepartmentName,
-                BankAccountNumber = em.BankAccountNumber,
-                BankName = em.BankName,
-            }) ;
             using (var package = new ExcelPackage(stream))
             {
                 var workSheet = package.Workbook.Worksheets.Add(Properties.Resources.nameExcelFile);
@@ -130,12 +115,14 @@ namespace MISA.AMIS.API.Controllers
 
                 int i = 0;
                 // đổ dữ liệu từ list vào.
-                foreach (var e in listJoin)
+                foreach (var e in listEmployee)
                 {
                     workSheet.Cells[i + 2, 1].Value = i + 1;
                     workSheet.Cells[i + 2, 2].Value = e.EmployeeCode;
                     workSheet.Cells[i + 2, 3].Value = e.EmployeeName;
-                    workSheet.Cells[i + 2, 4].Value = e.Gender;
+                    if (e.Gender == 0) workSheet.Cells[i + 2, 4].Value = "Nam";
+                    else if (e.Gender == 1) workSheet.Cells[i + 2, 4].Value = "Nữ";
+                    else workSheet.Cells[i + 2, 4].Value = "Khác";
                     workSheet.Cells[i + 2, 5].Value = e.DateOfBirth != null ? e.DateOfBirth?.ToString("dd/MM/yyyy") : "";
                     workSheet.Cells[i + 2, 6].Value = e.EmployeePosition;
                     workSheet.Cells[i + 2, 7].Value = e.DepartmentName;

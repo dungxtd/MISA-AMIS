@@ -71,6 +71,11 @@ namespace MISA.Core.Entities
         public Guid DepartmentId { get; set; }
 
         ///<summary>
+        ///Tên phòng ban
+        /// </summary>
+        public String DepartmentName { get; set; }
+
+        ///<summary>
         ///Số tài khoản
         /// </summary>
         public string BankAccountNumber { get; set; }
