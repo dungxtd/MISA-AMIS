@@ -42,7 +42,9 @@
               <th class="t-table">SỐ TÀI KHOẢN</th>
               <th class="t-table">TÊN NGÂN HÀNG</th>
               <th class="t-table">CHI NHÁNH TK NGÂN HÀNG</th>
-              <th class="t-table" style="text-align: center; border-right: 0">CHỨC NĂNG</th>
+              <th class="t-table" style="text-align: center; border-right: 0">
+                CHỨC NĂNG
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -50,9 +52,15 @@
               <td class="t-table check-box"><input type="checkbox" /></td>
               <td class="t-table">{{ employee.employeeCode }}</td>
               <td class="t-table">{{ employee.employeeName }}</td>
-              <td class="t-table" style="text-align: center;">{{ employee.gender | formatGender }}</td>
-              <td class="t-table" style="text-align: center;">{{ employee.dateOfBirth | formatDate }}</td>
-              <td class="t-table" style="text-align: center;">{{ employee.identityNumber }}</td>
+              <td class="t-table" style="text-align: center;">
+                {{ employee.gender | formatGender }}
+              </td>
+              <td class="t-table" style="text-align: center;">
+                {{ employee.dateOfBirth | formatDate }}
+              </td>
+              <td class="t-table" style="text-align: center;">
+                {{ employee.identityNumber }}
+              </td>
               <td class="t-table">{{ employee.employeePosition }}</td>
               <td class="t-table">
                 {{ employee.departmentName }}
@@ -65,7 +73,10 @@
                   :idDelete="employee.employeeId"
                   :codeDelete="employee.employeeCode"
                   @editClick="editClick(employee.employeeId)"
-                  @loadData="loadData"
+                  @getData="getData"
+                  @showStatusLog="showStatusLog"
+                  @statusSuccess="statusSuccess"
+                  @statusWarning="statusWarning"
                 />
               </td>
             </tr>
@@ -74,17 +85,21 @@
       </div>
     </div>
     <div class="footer-list">
-      <div class="left-footer" style="display: flex;">Tổng số : <div style="font-weight: bold; margin: 0 4px;">{{count}}</div>  bản ghi</div>
+      <div class="left-footer" style="display: flex;">
+        Tổng số :
+        <div style="font-weight: bold; margin: 0 4px;">{{ count }}</div>
+        bản ghi
+      </div>
       <div class="right-footer">
-        <div class="select-wrap">        
-          <select v-model="pageSize" >
-          <option value="10">10 bản ghi trên một trang</option>
-          <option value="20">20 bản ghi trên một trang</option>
-          <option value="30">30 bản ghi trên một trang</option>
-          <option value="40">40 bản ghi trên một trang</option>
-        </select>
+        <div class="select-wrap">
+          <select v-model="pageSize">
+            <option value="10">10 bản ghi trên một trang</option>
+            <option value="20">20 bản ghi trên một trang</option>
+            <option value="30">30 bản ghi trên một trang</option>
+            <option value="40">40 bản ghi trên một trang</option>
+          </select>
         </div>
-        <div class="direc-page" @click="toFPage()">Trước</div>
+        <div class="direc-page" @click="toFPage()">Đầu</div>
         <div
           class="nb-page"
           v-bind:class="{ crrPage: isFiPage }"
@@ -106,7 +121,7 @@
         >
           {{ pageIndexTemp | formatIndexPageNext }}
         </div>
-        <div class="direc-page" @click="toLPage()">Sau</div>
+        <div class="direc-page" @click="toLPage()">Cuối</div>
       </div>
     </div>
     <EmployeeDetail
@@ -114,15 +129,17 @@
       :employee="employee"
       @hideDetailPageParent="hideDetailPageParent"
       :formMode="formMode"
-      @showErrorLog="showErrorLog"
-      @showErrorLogValidate= "showErrorLogValidate"
+      @showStatusLog="showStatusLog"
+      @statusSuccess="statusSuccess"
+      @statusWarning="statusWarning"
     />
-    <!-- :showErrorLog="showErrorLog"
-      :mesError="mesError" -->
+    <!-- :showStatusLog="showStatusLog"
+      :mesStatus="mesStatus" -->
     <ErrorLog
-      v-if="isShowErrorLog == true"
-      @hideErrorLog="hideErrorLog"
-      :mesError="mesError"
+      v-if="isShowStatusLog == true"
+      @hideStatusLog="hideStatusLog"
+      :mesStatus="mesStatus"
+      :statusLog="statusLog"
     />
   </div>
 </template>
@@ -292,7 +309,7 @@ export default {
     // Ham an cua so dialog
     hideDetailPageParent() {
       this.isShowDetail = false;
-      this.loadData();
+      this.getData();
     },
     //Ham lay thong tin nhan vien dua len form sua
     async editClick(employeeId) {
@@ -341,16 +358,18 @@ export default {
         fileLink.click();
       });
     },
-    showErrorLog(errMsg) {
-      this.isShowErrorLog = true;
-      this.mesError = errMsg;
+    showStatusLog(sttMsg) {
+      this.isShowStatusLog = true;
+      this.mesStatus = sttMsg;
     },
-    showErrorLogValidate(errMsg) {
-      this.isShowErrorLog = true;
-      this.mesError = errMsg;
+    statusSuccess() {
+      this.statusLog = true;
     },
-    hideErrorLog() {
-      this.isShowErrorLog = false;
+    statusWarning() {
+      this.statusLog = false;
+    },
+    hideStatusLog() {
+      this.isShowStatusLog = false;
     },
   },
   //
@@ -402,8 +421,9 @@ export default {
       isShowDetail: false, //biến ẩn hay hiện bảng detail
       employee: {}, //Biến chứa thông tin nhân viên hiển thị lên dialog
       formMode: "add", //Biến chứa thông tin thêm hay sửa gửi thị lên dialog
-      isShowErrorLog: false, //Bien chua thong tin hien thi cua so loi
-      mesError: "", ////Bien chua cau thong bao loi
+      isShowStatusLog: false, //Bien chua thong tin hien thi cua so loi
+      mesStatus: "", ////Bien chua cau thong bao
+      statusLog: false, //Biên chứa trạng thái thông báo
     };
   },
 };

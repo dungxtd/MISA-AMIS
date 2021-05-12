@@ -3,16 +3,23 @@
     <div class="log-model ">
       <div class="log-body">
         <div class="log-content">
-          <div class="ic icon-warning" style="margin: auto 0;"></div>
+          <div
+            class="ic"
+            :class="[
+              { 'icon-success': statusLog },
+              { 'icon-warning': !statusLog },
+            ]"
+            style="margin: auto 0;"
+          ></div>
           <div
             class="text-warning"
             style="font-size: 13px;margin: auto; color:#111 !important;"
           >
-            {{ mesError }}
+            {{ mesStatus }}
           </div>
         </div>
         <div class="log-footer" style="flex: 3;">
-          <div @click="cancelError">Huỷ</div>
+          <div @click="cancelLog">Huỷ</div>
         </div>
       </div>
     </div>
@@ -21,12 +28,13 @@
 <script>
 export default {
   props: {
-    showErrorLog: { type: Boolean, default: false },
-    mesError: { type: String, default: "" },
+    isShowStatusLog: { type: Boolean, default: false },
+    mesStatus: { type: String, default: "" },
+    statusLog: { type: Boolean, default: false },
   },
   methods: {
-    cancelError() {
-      this.$emit("hideErrorLog");
+    cancelLog() {
+      this.$emit("hideStatusLog");
     },
   },
 };
@@ -63,6 +71,13 @@ export default {
 }
 .icon-warning {
   background-position: -24px -954px !important;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+}
+.icon-success {
+  background-position: -89px -954px !important;
   width: 48px;
   height: 48px;
   min-width: 48px;

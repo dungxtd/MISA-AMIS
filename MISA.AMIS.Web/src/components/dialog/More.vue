@@ -49,11 +49,15 @@ export default {
           console.log(res);
           if (res.status == 200) {
             this.isShowMore = false;
-            this.$emit("loadData");
+            this.$emit("statusSuccess");
+            this.$emit("showStatusLog", "Xoá nhân viên thành công.");
+            this.$emit("getData");
           }
         })
         .catch((err) => {
           console.log(err);
+          this.$emit("statusWarning");
+          this.$emit("showStatusLog", err.response.data.devMsg);
         });
     },
     hideReportLog() {
@@ -78,8 +82,8 @@ export default {
 .hide-more {
   display: none;
 }
-#more{
-    font-weight: bold;
+#more {
+  font-weight: bold;
 }
 ul li {
   list-style: none;

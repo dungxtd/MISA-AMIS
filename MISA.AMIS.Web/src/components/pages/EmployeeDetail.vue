@@ -213,8 +213,7 @@ export default {
     isShow: { type: Boolean, default: false },
     employee: { type: Object, default: Object.create(null) },
     formMode: { type: String, default: "" },
-    // showErrorLog: { type: Boolean, default: false }, // Biến hiển thị cử sổ lỗi
-    // mesError: { type: String, default: "" }, // Câu thông báo lỗi
+    statusLog: { type: Boolean, default: false },
   },
   methods: {
     //Ham an vao nut thoat
@@ -229,17 +228,18 @@ export default {
       this.checkValCode();
       this.checkValName();
       this.checkValPss();
-      this.errMsg = "";
-      if (this.isValCode) this.errMsg += "Mã, ";
-      if (this.isValName) this.errMsg += "Tên, ";
-      if (this.isValPss) this.errMsg += "Vị trí, ";
-      this.errMsg = this.errMsg.substring(0, this.errMsg.length - 2);
-      if (this.errMsg != "") this.errMsg += " không được để trống.";
+      this.sttMsg = "";
+      if (this.isValCode) this.sttMsg += "Mã, ";
+      if (this.isValName) this.sttMsg += "Tên, ";
+      if (this.isValPss) this.sttMsg += "Vị trí, ";
+      this.sttMsg = this.sttMsg.substring(0, this.sttMsg.length - 2);
+      if (this.sttMsg != "") this.sttMsg += " không được để trống.";
       if (!this.isValCode && !this.isValName && !this.isValPss) {
         console.log("connect");
         this.addEmployee();
       } else {
-        this.$emit("showErrorLog", this.errMsg);
+        this.$emit("statusWarning");
+        this.$emit("showStatusLog", this.sttMsg);
         console.log("not connect");
       }
     },
@@ -252,13 +252,16 @@ export default {
           .then((res) => {
             console.log(res);
             if (res.status == 200) {
+              this.$emit("statusSuccess");
+              this.$emit("showStatusLog", "Thêm nhân viên thành công.");
               this.hideDetailPage();
               console.log(res);
             }
           })
           .catch((err) => {
             console.log(err);
-            this.$emit("showErrorLogValidate", err.response.data.devMsg);
+            this.$emit("statusWarning");
+            this.$emit("showStatusLog", err.response.data.devMsg);
           });
       } else {
         await axios
@@ -266,12 +269,16 @@ export default {
           .then((res) => {
             console.log(res.data);
             if (res.status == 200) {
+              this.$emit("statusSuccess");
+              this.$emit("showStatusLog", "Sửa nhân viên thành công.");
               this.hideDetailPage();
+              console.log(res);
             }
           })
           .catch((err) => {
             console.log(err);
-            this.$emit("showErrorLogValidate", err.response.data.devMsg);
+            this.$emit("statusWarning");
+            this.$emit("showStatusLog", err.response.data.devMsg);
           });
       }
     },
@@ -302,7 +309,7 @@ export default {
       isValCode: false, // Biến báo lỗi imployee code
       isValName: false, // Biến báo lỗi imployee code
       isValPss: false, // Biến báo lỗi imployee code
-      errMsg: "", //Biến chứa câu thông báo lỗi
+      sttMsg: "", //Biến chứa câu thông báo lỗi
     };
   },
   watch: {},
