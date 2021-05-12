@@ -13,6 +13,7 @@ namespace MISA.Infrastructure.MISA.Infrastructure
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
+        #region Hàm check tồn tại mã nhân viên
         /// <summary>
         /// Hàm check tồn tại mã nhân viên
         /// </summary>
@@ -30,6 +31,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return isExist;
             }
         }
+        #endregion
+
+        #region Hàm phân trang có filter
         /// <summary>
         /// Hàm phân trang có filter
         /// </summary>
@@ -51,6 +55,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return employees;
             }
         }
+        #endregion
+
+        #region Hàm đếm số lượng bản ghi
         /// <summary>
         /// Hàm đếm số lượng bản ghi
         /// </summary>
@@ -69,6 +76,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return count;
             }
         }
+        #endregion
+
+        #region Hàm lấy bản ghi lớn nhất
         /// <summary>
         /// Hàm lấy bản ghi lớn nhất
         /// </summary>
@@ -84,6 +94,27 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return count;
             }
         }
+        #endregion
 
+        #region Hàm check tồn tại mã nhân viên khi sửa
+        /// <summary>
+        /// Hàm check tồn tại mã nhân viên khi sửa
+        /// </summary>
+        /// <param name="employeeCode"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
+        public IEnumerable<bool> CheckEmployeeCodeExitsUpdate(string employeeCode, Guid employeeId)
+        {
+            using (dbConnection = new MySqlConnection(connectionString))
+            {
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@EmployeeCode", employeeCode);
+                dynamicParameters.Add("@EmployeeId", employeeCode);
+                var isExist = dbConnection.Query<bool>("Proc_CheckCodeExistUpdate", param: dynamicParameters, commandType: CommandType.StoredProcedure);
+                return isExist;
+            }
+        }
+        #endregion
     }
 }

@@ -12,6 +12,7 @@ namespace MISA.Infrastructure.MISA.Infrastructure
 {
     public class BaseRepository<MISAEntity> : IBaseRepository<MISAEntity> where MISAEntity : class
     {
+        #region Khai báo biến toàn cục 
         protected String tableName = typeof(MISAEntity).Name;
         protected String connectionString = "" +
         "Host = 47.241.69.179;" +
@@ -19,10 +20,10 @@ namespace MISA.Infrastructure.MISA.Infrastructure
         "Database = MF826_AMIS_TDDUNG;" +
         "User Id = dev;" +
         "Password = 12345678;";
-
         protected IDbConnection dbConnection;
+        #endregion
 
-
+        #region Hàm lấy ra tất cả bản ghi
         /// <summary>
         /// Hàm lấy ra tất cả bản ghi
         /// </summary>
@@ -40,6 +41,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
 
             }
         }
+        #endregion
+
+        #region Hàm lấy bản ghi theo id
         /// <summary>
         /// Hàm lấy bản ghi theo id
         /// </summary>
@@ -57,6 +61,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return entitity;
             }
         }
+        #endregion
+
+        #region Hàm thêm bản ghi
         /// <summary>
         /// Hàm thêm bản ghi
         /// </summary>
@@ -74,6 +81,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return rowsAffect;
             }
         }
+        #endregion
+
+        #region Hàm sửa bản ghi
         /// <summary>
         /// Hàm sửa bản ghi
         /// </summary>
@@ -91,6 +101,9 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return rowsAffect;
             }
         }
+        #endregion
+
+        #region Hàm xoá bản ghi
         /// <summary>
         /// Hàm xoá bản ghi
         /// </summary>
@@ -108,6 +121,7 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return rowsEffect;
             }
         }
+        #endregion
 
     }
 }

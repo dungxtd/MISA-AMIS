@@ -23,7 +23,7 @@ namespace MISA.AMIS.API.Controllers
             _employeeService = employeeService;
             _departmentService = departmentService;
         }
-
+        #region API chia trang bằng filter
         /// <summary>
         /// Hàm chia trang bằng filter
         /// </summary>
@@ -46,6 +46,9 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
+        #endregion
+
+        #region API đếm số bản ghi
         /// <summary>
         /// Hàm đếm bản ghi
         /// </summary>
@@ -66,6 +69,9 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
+#endregion
+
+        #region API xuất file excel
         /// <summary>
         /// Hàm xuất ra file excel
         /// </summary>
@@ -144,6 +150,9 @@ namespace MISA.AMIS.API.Controllers
 
             return File(stream, Properties.Resources.excelFileLink, excelName);
         }
+        #endregion
+
+        #region API lấy bản ghi lớn nhất
         /// <summary>
         /// Hàm lấy bản ghi lớn nhất
         /// </summary>
@@ -164,5 +173,6 @@ namespace MISA.AMIS.API.Controllers
             }
 
         }
+        #endregion
     }
 }

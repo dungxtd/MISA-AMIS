@@ -263,7 +263,9 @@ export default {
             this.$emit("statusWarning");
             this.$emit("showStatusLog", err.response.data.devMsg);
           });
-      } else {
+      }
+      // Goi api sua nhan vien
+      else {
         await axios
           .put(aipUrl, this.employee)
           .then((res) => {

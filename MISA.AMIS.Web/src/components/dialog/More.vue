@@ -2,7 +2,11 @@
   <div id="more">
     <td class="t-table wrap-edit-icon non-border">
       <div class="edit-text" @click="editClick()">Sửa</div>
-      <div class="ic ic-max edit-icon" @click="moreClick()"></div>
+      <div
+        class="ic ic-max edit-icon"
+        @click="moreClick()"
+        v-click-outside="clickOutSide"
+      ></div>
       <ul class="option" :class="{ 'hide-more': !isShowMore }">
         <li>Nhân bản</li>
         <li @click="deleteClick()">Xoá</li>
@@ -20,8 +24,10 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
 import ReportEdit from "../dialog/ReportEdit";
-
+import vClickOutside from "v-click-outside";
+Vue.use(vClickOutside);
 export default {
   components: {
     ReportEdit,
@@ -31,7 +37,11 @@ export default {
     idDelete: { type: String, default: "" },
     codeDelete: { type: String, default: "" },
   },
+
   methods: {
+    clickOutSide() {
+      this.isShowMore = false;
+    },
     deleteClick() {
       this.codeDeleteTemp = this.codeDelete;
       this.isShowReportLog = true;

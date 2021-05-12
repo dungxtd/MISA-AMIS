@@ -55,6 +55,18 @@ namespace MISA.Core.Service
             }
         }
         /// <summary>
+        /// Hàm validate cho sửa nhân viên
+        /// </summary>
+        /// <param name="entity"></param>
+        protected override void ValidateUpdate(Employee entity)
+        {
+            var isExist = _employeeRepository.CheckEmployeeCodeExitsUpdate(entity.EmployeeCode, entity.EmployeeId);
+            if (isExist.Single())
+            {
+                throw new BadRequestException(Properties.Resources.duplidateEmployeeCode);
+            }
+        }
+        /// <summary>
         /// Hàm validate Paging
         /// </summary>
         /// <param name="pageIndex"></param>
@@ -86,5 +98,6 @@ namespace MISA.Core.Service
             var count = _employeeRepository.GetMaxCode();
             return count;
         }
+
     }
 }

@@ -56,6 +56,8 @@ namespace MISA.Core.Service
             Validate(entity);
             return _baseRepository.Insert((entity));
         }
+
+        #region Hàm validate chung
         /// <summary>
         /// Hàm validate đối tượng
         /// </summary>
@@ -100,15 +102,38 @@ namespace MISA.Core.Service
             }
             CustomValidate(entity);
         }
+        #endregion
+        /// <summary>
+        /// Hàm custome vatlidate
+        /// </summary>
+        /// <param name="entity"></param>
         protected virtual void CustomValidate(MISAEntity entity)
         {
 
         }
+
+        /// <summary>
+        /// Service sửa
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public int Update(MISAEntity entity)
         {
+            ValidateUpdate(entity);
             return _baseRepository.Update(entity);
         }
 
+        protected virtual void ValidateUpdate(MISAEntity entity)
+        {
+            
+        }
+
+
+        /// <summary>
+        /// Service xoá
+        /// </summary>
+        /// <param name="entityId"></param>
+        /// <returns></returns>
         public int Delete(Guid entityId)
         {
             return _baseRepository.Delete(entityId);
