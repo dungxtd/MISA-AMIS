@@ -19,11 +19,9 @@ namespace MISA.Core.AttributeCustom
     public class MISAMaxLength : Attribute
     {
         public int MaxLength = 0;
-        public string MsgError = string.Empty;
-        public MISAMaxLength(int maxLength = 0, string msgError = "")
+        public MISAMaxLength(int maxLength = 0)
         {
             MaxLength = maxLength;
-            MsgError = msgError;
 
         }
     }

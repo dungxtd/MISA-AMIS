@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MISA.AMIS.API.Middleware;
 using MISA.Core.Interface.Repository;
 using MISA.Core.Interface.Service;
 using MISA.Core.Service;
@@ -59,7 +60,7 @@ namespace MISA.AMIS.API
             }
             app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
-
+            app.UseMiddleware(typeof(ExceptionHandling));
             app.UseRouting();
 
             app.UseAuthorization();

@@ -21,36 +21,61 @@ namespace MISA.Core.Service
         {
             _employeeRepository = employeeRepository;
         }
-
+        /// <summary>
+        /// Hàm validate nhân viên
+        /// </summary>
+        /// <param name="entity"></param>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         protected override void CustomValidate(Employee entity)
         {
             if (entity is Employee)
             {
                 var employee = entity;
-                //Tên khách hàng không được phép để trống
+                //Tên, mã, phòng ban khách hàng không được phép để trống
                 if (string.IsNullOrEmpty(employee.EmployeeName))
                 {
-                    throw new BadRequestException("Tên khách hàng không được phép để trống");
+                    throw new BadRequestException(Properties.Resources.emptyEmployeeName);
                 }
-
-                //Check các thông tin bắt buộc nhập
-
-
+                if (string.IsNullOrEmpty(employee.EmployeeCode))
+                {
+                    throw new BadRequestException(Properties.Resources.emptyEmployeeCode);
+                }
+                if (string.IsNullOrEmpty(employee.DepartmentId.ToString()))
+                {
+                    throw new BadRequestException(Properties.Resources.emptyEmployeePss);
+                }
                 //Check trùng mã
                 var isExits = _employeeRepository.CheckEmployeeCodeExits(employee.EmployeeCode);
-                if (isExits)
+                if (isExits.Single())
                 {
-                    //throw new Exception("Mã khách hàng đã tồn tại trên hệ thống.");
+                    throw new BadRequestException(Properties.Resources.duplidateEmployeeCode);
                 }
+
             }
         }
-
+        /// <summary>
+        /// Hàm validate Paging
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public IEnumerable<Employee> GetPaging(int pageIndex, int pageSize, string filter)
         {
-            if (pageIndex <= 0 || pageSize <= 0) throw new BadRequestException("Page size và page index phải là số nguyên");
+            if (pageIndex <= 0 || pageSize <= 0) throw new BadRequestException(Properties.Resources.pagingErr);
             var employees = _employeeRepository.GetPaging(pageIndex, pageSize, filter);
             return employees;
         }
+        /// <summary>
+        /// Hàm đếm số lượng bản ghi
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public IEnumerable<int> GetEmployeeCount(string filter)
         {
             var count = _employeeRepository.GetEmployeeCount(filter);

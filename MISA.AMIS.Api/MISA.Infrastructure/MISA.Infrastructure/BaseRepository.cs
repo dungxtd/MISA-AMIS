@@ -23,7 +23,12 @@ namespace MISA.Infrastructure.MISA.Infrastructure
         protected IDbConnection dbConnection;
 
 
-
+        /// <summary>
+        /// Hàm lấy ra tất cả bản ghi
+        /// </summary>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public IEnumerable<MISAEntity> GetAll()
         {
             {
@@ -35,7 +40,13 @@ namespace MISA.Infrastructure.MISA.Infrastructure
 
             }
         }
-
+        /// <summary>
+        /// Hàm lấy bản ghi theo id
+        /// </summary>
+        /// <param name="entityId"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public MISAEntity GetById(Guid entityId)
         {
             using (dbConnection = new MySqlConnection(connectionString))
@@ -46,6 +57,13 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return entitity;
             }
         }
+        /// <summary>
+        /// Hàm thêm bản ghi
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public int Insert(MISAEntity entity)
         {
             using (dbConnection = new MySqlConnection(connectionString))
@@ -56,6 +74,13 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return rowsAffect;
             }
         }
+        /// <summary>
+        /// Hàm sửa bản ghi
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public int Update(MISAEntity entity)
         {
             using (dbConnection = new MySqlConnection(connectionString))
@@ -66,7 +91,13 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return rowsAffect;
             }
         }
-
+        /// <summary>
+        /// Hàm xoá bản ghi
+        /// </summary>
+        /// <param name="entityId"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public int Delete(Guid entityId)
         {
             using (dbConnection = new MySqlConnection(connectionString))

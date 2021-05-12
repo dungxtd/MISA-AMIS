@@ -250,21 +250,28 @@ export default {
           .post(aipUrl, this.employee)
           .then((res) => {
             console.log(res);
+            if(res.status == 200) {
+              this.hideDetailPage();
+            console.log(res);}
+            
           })
           .catch((err) => {
             console.log(err);
+            this.$emit("showErrorLogValidate",err.response.data.devMsg);
           });
       } else {
         await axios
           .put(aipUrl, this.employee)
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
             if (res.status == 200) {
               this.hideDetailPage();
             }
+            
           })
           .catch((err) => {
             console.log(err);
+            this.$emit("showErrorLogValidate",err.response.data.devMsg);
           });
       }
     },

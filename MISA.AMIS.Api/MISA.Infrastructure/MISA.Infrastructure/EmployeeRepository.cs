@@ -13,17 +13,32 @@ namespace MISA.Infrastructure.MISA.Infrastructure
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        public bool CheckEmployeeCodeExits(string employeeCode)
+        /// <summary>
+        /// Hàm check tồn tại mã nhân viên
+        /// </summary>
+        /// <param name="employeeCode"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
+        public IEnumerable<bool>  CheckEmployeeCodeExits(string employeeCode)
         {
-            // Khởi tạo kết nối
-            //Check dữ liệu
-            return true;
+            using (dbConnection = new MySqlConnection(connectionString))
+            {
+                DynamicParameters dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("@EmployeeCode", employeeCode);
+                var isExist = dbConnection.Query<bool>("Proc_CheckCodeExist", param: dynamicParameters, commandType: CommandType.StoredProcedure);
+                return isExist;
+            }
         }
-
-        public bool CheckEmployeePhoneNumberExits(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Hàm phân trang có filter
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public IEnumerable<Employee> GetPaging(int pageIndex, int pageSize, string filter)
         {
             using (dbConnection = new MySqlConnection(connectionString))
@@ -36,6 +51,13 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return employees;
             }
         }
+        /// <summary>
+        /// Hàm đếm số lượng bản ghi
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public IEnumerable<int> GetEmployeeCount(string filter)
         {
 
@@ -47,7 +69,12 @@ namespace MISA.Infrastructure.MISA.Infrastructure
                 return count;
             }
         }
-
+        /// <summary>
+        /// Hàm lấy bản ghi lớn nhất
+        /// </summary>
+        /// <returns></returns>
+        /// Created: TDDung
+        /// Date: 10/5/2021
         public IEnumerable<String> GetMaxCode()
         {
 

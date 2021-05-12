@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.Core.AttributeCustom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,8 @@ namespace MISA.Core.Entities
         ///<summary>
         ///Mã nhân viên
         /// </summary>
-        //[MISARequired("Mã khách hàng không được phép để trống")]
-        //[MISAMaxLength(20, "Mã khách hàng không được dài quá 20 kí tự")]
+        [MISARequired]
+        [MISAMaxLength(maxLength:20)]
         public string EmployeeCode { get; set; }
 
         ///<summary>
@@ -37,7 +38,7 @@ namespace MISA.Core.Entities
         ///<summary>
         ///Ngày sinh
         /// </summary>
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         ///<summary>
         ///Số CMND
@@ -47,7 +48,7 @@ namespace MISA.Core.Entities
         ///<summary>
         ///Ngày cấp CMND
         /// </summary>
-        public DateTime IdentityDate { get; set; }
+        public DateTime? IdentityDate { get; set; }
 
         ///<summary>
         ///Nơi cấp CMND

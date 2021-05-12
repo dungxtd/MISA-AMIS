@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace MISA.Core.Interface.Service
 {
+    /// <summary>
+    /// Service dùng chung
+    /// </summary>
+    /// <typeparam name="MISAEntity"></typeparam>
     public interface IBaseService<MISAEntity>
     {
         public IEnumerable<MISAEntity> GetAll();

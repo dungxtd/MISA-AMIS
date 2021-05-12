@@ -9,8 +9,7 @@ namespace MISA.Core.Interface.Repository
 {
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        public bool CheckEmployeeCodeExits(String employeeCode);
-        public bool CheckEmployeePhoneNumberExits(String phoneNumber);
+        public IEnumerable<bool> CheckEmployeeCodeExits(string employeeCode);
         IEnumerable<Employee> GetPaging(int pageIndex, int pageSize,string filter);
         public IEnumerable<int> GetEmployeeCount(string filter);
         public IEnumerable<String> GetMaxCode();

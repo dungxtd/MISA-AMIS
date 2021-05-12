@@ -45,6 +45,7 @@
   height: 36px;
   position: relative;
   margin-left: 12px;
+  cursor: pointer;
 }
 .button-add .add-text {
   padding: 8px 14px 8px 20px;

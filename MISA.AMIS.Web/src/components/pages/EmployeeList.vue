@@ -113,6 +113,7 @@
       @hideDetailPageParent="hideDetailPageParent"
       :formMode="formMode"
       @showErrorLog="showErrorLog"
+      @showErrorLogValidate= "showErrorLogValidate"
     />
     <!-- :showErrorLog="showErrorLog"
       :mesError="mesError" -->
@@ -289,6 +290,7 @@ export default {
     // Ham an cua so dialog
     hideDetailPageParent() {
       this.isShowDetail = false;
+      this.loadData();
     },
     //Ham lay thong tin nhan vien dua len form sua
     async editClick(employeeId) {
@@ -338,6 +340,10 @@ export default {
       });
     },
     showErrorLog(errMsg) {
+      this.isShowErrorLog = true;
+      this.mesError = errMsg;
+    },
+    showErrorLogValidate(errMsg) {
       this.isShowErrorLog = true;
       this.mesError = errMsg;
     },

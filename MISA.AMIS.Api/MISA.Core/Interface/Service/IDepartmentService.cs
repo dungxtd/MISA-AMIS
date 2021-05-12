@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace MISA.Core.Interface.Service
 {
+    /// <summary>
+    /// Srevice phục vụ cho phòng ban
+    /// </summary>
     public interface IDepartmentService : IBaseService<Department>
     {
+        
     }
 }
