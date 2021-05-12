@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import moment from 'moment';
-import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 Vue.filter("formatDate", function (value) {
@@ -44,6 +43,5 @@ Vue.directive('focus', {
   }
 })
 new Vue({
-  vuetify,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')
