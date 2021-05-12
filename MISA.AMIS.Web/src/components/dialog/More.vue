@@ -108,7 +108,7 @@ ul li {
 }
 ul li:hover {
   background-color: #eee;
-  color: #2ca01c;
+  color: #2cbc18;
 }
 .non-border {
   border: 0;

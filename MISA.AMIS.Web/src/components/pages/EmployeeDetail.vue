@@ -50,6 +50,7 @@
                       v-model="employee.employeeName"
                       v-bind:class="{ error: isValName }"
                       v-on:blur="checkValName"
+                      ref="search"
                     />
                     <div class="warning-text">Tên không được để trống.</div>
                   </div>

@@ -110,7 +110,7 @@ namespace MISA.Infrastructure.MISA.Infrastructure
             {
                 DynamicParameters dynamicParameters = new DynamicParameters();
                 dynamicParameters.Add("@EmployeeCode", employeeCode);
-                dynamicParameters.Add("@EmployeeId", employeeCode);
+                dynamicParameters.Add("@EmployeeId", employeeId);
                 var isExist = dbConnection.Query<bool>("Proc_CheckCodeExistUpdate", param: dynamicParameters, commandType: CommandType.StoredProcedure);
                 return isExist;
             }

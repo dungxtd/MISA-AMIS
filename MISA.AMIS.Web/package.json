@@ -8,6 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@syncfusion/ej2-data": "^19.1.58",
+    "@syncfusion/ej2-vue-buttons": "^19.1.54",
+    "@syncfusion/ej2-vue-dropdowns": "^19.1.59",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",

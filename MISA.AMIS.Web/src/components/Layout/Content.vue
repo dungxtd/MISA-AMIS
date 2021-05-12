@@ -6,7 +6,7 @@
 
 <script>
 import EmployeeList from "../pages/EmployeeList";
-// import EmployeeDetail from "../pages/EmployeeDetail";
+
 export default {
   name: "Content",
   data() {
@@ -14,7 +14,6 @@ export default {
   },
   components: {
     EmployeeList,
-    // EmployeeDetail,
   },
   methods: {},
 };

@@ -431,8 +431,9 @@ export default {
 
 <style scope>
 .crrPage {
-  background-color: #38393d;
-  color: #fff;
+  background-color: #ffffff;
+  color: #38393d;
+  border: 1px solid #38393d;
 }
 .popup_delete {
   position: absolute;
