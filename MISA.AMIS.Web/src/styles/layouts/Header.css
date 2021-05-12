@@ -122,7 +122,7 @@ input.filter-input-label::placeholder {
 }
 .header-right .option-cover {
   align-items: center;
-  height: 48px;
+  height: 44px;
 }
 .header-right .option-cover:hover {
   background-color: #2ca01c;

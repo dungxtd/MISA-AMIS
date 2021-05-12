@@ -90,7 +90,7 @@
   padding: 16px;
   display: flex;
   justify-content: space-between;
-  background-color: #eceef1;
+  background-color: #fff;
 }
 .header-left .more-button {
   box-sizing: border-box;
@@ -160,7 +160,7 @@ input.filter-employee-input-label:focus {
 /*---------------------*/
 .t-table {
   min-width: max-content;
-  padding: 0 10px;
+  padding: 4px 10px;
   height: 36px;
 }
 .list {
@@ -168,7 +168,7 @@ input.filter-employee-input-label:focus {
   height: calc(100vh - 225px);
 }
 td {
-  border: 1px solid #afafaf;
+  border: 1px solid #c7c7c7;
 }
 table {
   border-collapse: collapse;
@@ -264,7 +264,7 @@ table thead th {
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
-  margin: 0 4px;
+  margin: 4px 4px;
 }
 .nb-page {
   vertical-align: middle;
@@ -274,5 +274,11 @@ table thead th {
   border-radius: 2px;
   border: 1px solid #8d9096;
   cursor: pointer;
-  margin: 0 2px;
+  margin: auto 3px;
+}
+select{
+  padding: 4px 5px;
+}
+select option{
+  padding: 4px;
 }

@@ -25,10 +25,10 @@
             <div class="flex-1 left-f-inf">
               <div class="flex">
                 <div class="flex flex-1">
-                  <div style="position: relative;">
+                  <div style="position: relative">
                     <div class="label">
                       Mã
-                      <div style="color: red; display: inline;">*</div>
+                      <div style="color: red; display: inline">*</div>
                     </div>
                     <input
                       type="text"
@@ -39,14 +39,14 @@
                     />
                     <div class="warning-text">Mã không được để trống.</div>
                   </div>
-                  <div class="flex-1" style="position: relative;">
+                  <div class="flex-1" style="position: relative">
                     <div class="label">
                       Tên
-                      <div style="color: red; display: inline;">*</div>
+                      <div style="color: red; display: inline">*</div>
                     </div>
                     <input
                       type="text"
-                      style="width: 83%;"
+                      style="width: 83%"
                       v-model="employee.employeeName"
                       v-bind:class="{ error: isValName }"
                       v-on:blur="checkValName"
@@ -56,9 +56,7 @@
                 </div>
                 <div class="flex flex-1">
                   <div class="mgr10 flex-1">
-                    <div class="label">
-                      Ngày sinh
-                    </div>
+                    <div class="label">Ngày sinh</div>
                     <input type="date" v-model="employee.dateOfBirth" />
                   </div>
                   <div class="flex-1">
@@ -93,14 +91,15 @@
                 </div>
               </div>
               <div class="flex">
-                <div class="flex-1" style="position: relative;">
+                <div class="flex-1" style="position: relative">
                   <div class="label">
                     Đơn vị
-                    <div style="color: red; display: inline;">*</div>
+                    <div style="color: red; display: inline">*</div>
                   </div>
+
                   <select
                     type="text"
-                    style="width: 90%;"
+                    style="width: 90%"
                     v-model="employee.departmentId"
                     v-bind:class="{ error: isValPss }"
                     v-on:blur="checkValPss"
@@ -121,6 +120,7 @@
                       Phòng Nghiên cứu
                     </option>
                   </select>
+
                   <div class="warning-text">Vị trí không được để trống.</div>
                 </div>
                 <div class="flex flex-1">
@@ -132,7 +132,7 @@
                     <div class="label">Ngày cấp</div>
                     <input
                       type="date"
-                      style="width: 90%;"
+                      style="width: 90%"
                       v-model="employee.identityDate"
                     />
                   </div>
@@ -143,11 +143,11 @@
                   <div class="label">Chức danh</div>
                   <input
                     type="text"
-                    style="width: 90%;"
+                    style="width: 90%"
                     v-model="employee.employeePosition"
                   />
                 </div>
-                <div class="flex-1 ">
+                <div class="flex-1">
                   <div class="label">Nơi cấp</div>
                   <input
                     type="text"
@@ -233,7 +233,8 @@ export default {
       if (this.isValCode) this.errMsg += "Mã, ";
       if (this.isValName) this.errMsg += "Tên, ";
       if (this.isValPss) this.errMsg += "Vị trí, ";
-      if (this.errMsg != "") this.errMsg += "không được để trống.";
+      this.errMsg = this.errMsg.substring(0, this.errMsg.length - 2);
+      if (this.errMsg != "") this.errMsg += " không được để trống.";
       if (!this.isValCode && !this.isValName && !this.isValPss) {
         console.log("connect");
         this.addEmployee();
@@ -250,14 +251,14 @@ export default {
           .post(aipUrl, this.employee)
           .then((res) => {
             console.log(res);
-            if(res.status == 200) {
+            if (res.status == 200) {
               this.hideDetailPage();
-            console.log(res);}
-            
+              console.log(res);
+            }
           })
           .catch((err) => {
             console.log(err);
-            this.$emit("showErrorLogValidate",err.response.data.devMsg);
+            this.$emit("showErrorLogValidate", err.response.data.devMsg);
           });
       } else {
         await axios
@@ -267,11 +268,10 @@ export default {
             if (res.status == 200) {
               this.hideDetailPage();
             }
-            
           })
           .catch((err) => {
             console.log(err);
-            this.$emit("showErrorLogValidate",err.response.data.devMsg);
+            this.$emit("showErrorLogValidate", err.response.data.devMsg);
           });
       }
     },

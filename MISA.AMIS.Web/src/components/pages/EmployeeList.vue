@@ -34,15 +34,15 @@
               <th class="t-table check-box"><input type="checkbox" /></th>
               <th class="t-table">MÃ NHÂN VIÊN</th>
               <th class="t-table">TÊN NHÂN VIÊN</th>
-              <th class="t-table">GIỚI TÍNH</th>
-              <th class="t-table">NGÀY SINH</th>
-              <th class="t-table">SỐ CMND</th>
+              <th class="t-table" style="text-align: center;">GIỚI TÍNH</th>
+              <th class="t-table" style="text-align: center;">NGÀY SINH</th>
+              <th class="t-table" style="text-align: center;">SỐ CMND</th>
               <th class="t-table">CHỨC DANH</th>
               <th class="t-table">TÊN ĐƠN VỊ</th>
               <th class="t-table">SỐ TÀI KHOẢN</th>
               <th class="t-table">TÊN NGÂN HÀNG</th>
               <th class="t-table">CHI NHÁNH TK NGÂN HÀNG</th>
-              <th class="t-table">CHỨC NĂNG</th>
+              <th class="t-table" style="text-align: center; border-right: 0">CHỨC NĂNG</th>
             </tr>
           </thead>
           <tbody>
@@ -50,9 +50,9 @@
               <td class="t-table check-box"><input type="checkbox" /></td>
               <td class="t-table">{{ employee.employeeCode }}</td>
               <td class="t-table">{{ employee.employeeName }}</td>
-              <td class="t-table">{{ employee.gender | formatGender }}</td>
-              <td class="t-table">{{ employee.dateOfBirth | formatDate }}</td>
-              <td class="t-table">{{ employee.identityNumber }}</td>
+              <td class="t-table" style="text-align: center;">{{ employee.gender | formatGender }}</td>
+              <td class="t-table" style="text-align: center;">{{ employee.dateOfBirth | formatDate }}</td>
+              <td class="t-table" style="text-align: center;">{{ employee.identityNumber }}</td>
               <td class="t-table">{{ employee.employeePosition }}</td>
               <td class="t-table">
                 {{ employee.departmentName }}
@@ -60,7 +60,7 @@
               <td class="t-table">{{ employee.bankAccountNumber }}</td>
               <td class="t-table">{{ employee.bankName }}</td>
               <td class="t-table">{{ employee.bankBranchName }}</td>
-              <td>
+              <td style="border-right: 0">
                 <MoreDialog
                   :idDelete="employee.employeeId"
                   :codeDelete="employee.employeeCode"
@@ -74,14 +74,16 @@
       </div>
     </div>
     <div class="footer-list">
-      <div class="left-footer">Tổng số : {{ count }} bản ghi</div>
+      <div class="left-footer" style="display: flex;">Tổng số : <div style="font-weight: bold; margin: 0 4px;">{{count}}</div>  bản ghi</div>
       <div class="right-footer">
-        <select v-model="pageSize">
+        <div class="select-wrap">        
+          <select v-model="pageSize" >
           <option value="10">10 bản ghi trên một trang</option>
           <option value="20">20 bản ghi trên một trang</option>
           <option value="30">30 bản ghi trên một trang</option>
           <option value="40">40 bản ghi trên một trang</option>
         </select>
+        </div>
         <div class="direc-page" @click="toFPage()">Trước</div>
         <div
           class="nb-page"

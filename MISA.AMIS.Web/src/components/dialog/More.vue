@@ -78,6 +78,9 @@ export default {
 .hide-more {
   display: none;
 }
+#more{
+    font-weight: bold;
+}
 ul li {
   list-style: none;
   text-align: inherit;
@@ -86,6 +89,8 @@ ul li {
   outline: none;
   text-transform: none;
   text-decoration: none;
+  font-weight: 100;
+  cursor: pointer;
 }
 ul li:hover {
   background-color: #eee;
