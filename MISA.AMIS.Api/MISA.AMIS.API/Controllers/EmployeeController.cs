@@ -120,7 +120,7 @@ namespace MISA.AMIS.API.Controllers
                 }
 
                 int i = 0;
-                // đổ dữ liệu từ list vào.
+                // cho dữ liệu từ list vào file
                 foreach (var e in listEmployee)
                 {
                     workSheet.Cells[i + 2, 1].Value = i + 1;
@@ -135,7 +135,7 @@ namespace MISA.AMIS.API.Controllers
                     workSheet.Cells[i + 2, 8].Value = e.BankAccountNumber;
                     workSheet.Cells[i + 2, 9].Value = e.BankName;
 
-                    using (var range = workSheet.Cells[i + 4, 1, i + 4, 9])
+                    using (var range = workSheet.Cells[i + 2, 1, i + 2, 9])
                     {
                         range.Style.Border.BorderAround(ExcelBorderStyle.Thin);
                     }

@@ -5,6 +5,7 @@ import moment from 'moment';
 Vue.config.productionTip = false
 Vue.filter("formatDate", function (value) {
   if (value) {
+    value = value.substring(0, 10);
     return moment(String(value)).format("MM/DD/YYYY");
   }
 });
@@ -31,7 +32,6 @@ Vue.filter("formatGender", function (value) {
     return "Khác";
   }
   else {
-    console.log("sai định dạng giới tính");
     return null;
   }
 });

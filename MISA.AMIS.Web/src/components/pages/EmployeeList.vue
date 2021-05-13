@@ -82,6 +82,16 @@
             </tr>
           </tbody>
         </table>
+        <div class="ms-pagination" style="bottom: unset; width: 2046px;" :class="{'hide-more': !emptyData}">
+          <div class="w-full img-wrap pb-4">
+            <img  src="https://actappg2.misacdn.net/img/bg_report_nodata.76e50bd8.svg" class="nodata-img">
+            <br><span class="nodata-text">Không có dữ liệu</span>
+            </div>
+            <th class="ms-out-right-white-30">
+              </th>
+              <th class="ms-out-right-grey-30">
+                </th>
+                </div>
       </div>
     </div>
     <div class="footer-list">
@@ -179,7 +189,7 @@ export default {
         this.pageIndex +
         "&pageSize=" +
         this.pageSize;
-      if (this.inputFilter != "") aipUrl += "&filter=" + this.inputFilter;
+      if (this.inputFilter != String.Empty) aipUrl += "&filter=" + this.inputFilter;
       console.log(this.pageSize);
       await axios
         .get(aipUrl)
@@ -378,7 +388,15 @@ export default {
   //   Theo dõi biến
   watch: {
     inputFilter() {
-      if (this.inputFilter != "") this.searchAndArrangePage();
+      if (this.inputFilter != String.Empty) {
+        this.searchAndArrangePage();
+        }
+    },
+    employees() {
+      if(this.employees.length == 0){
+        this.emptyData = true;
+      }
+      else this.emptyData = false;
     },
     pageSize() {
       this.searchAndArrangePage();
@@ -424,6 +442,7 @@ export default {
       isShowStatusLog: false, //Bien chua thong tin hien thi cua so loi
       mesStatus: "", ////Bien chua cau thong bao
       statusLog: false, //Biên chứa trạng thái thông báo
+      emptyData: true, //Biến theo dõi data
     };
   },
 };
@@ -445,5 +464,17 @@ export default {
 }
 .hide-more {
   display: none;
+}
+.nodata-img{    
+position: sticky;
+margin: 50px 50px 30px;
+width: 132px;
+height: 74px;
+left: 45%;
+    }
+.nodata-text {
+position: sticky;
+left: 44%;
+padding-left: 20px;
 }
 </style>
