@@ -4,13 +4,12 @@
       <div class="report-body">
         <div class="report-content">
           <div class="ic icon-edit-warning" style="margin: auto 0;"></div>
-          <div
-            class="text-edit-warning"
-          >
+          <div class="text-edit-warning">
             Bạn có thật sự muốn xoá nhân viên {{ codeDelete }} không ?
           </div>
         </div>
-        <div class="report-footer" style="flex: 3;">
+        <div class="mess-line"></div>
+        <div class="report-footer" style="flex: 3 1 0%;">
           <div class="no-btn" @click="noClick">Không</div>
           <div class="yes-btn" @click="yesClick">Có</div>
         </div>
@@ -37,7 +36,15 @@ export default {
 </script>
 
 <style scope>
-.text-edit-warning{
+.mess-line {
+  height: 1px;
+  background: #b8bcc3;
+  margin-bottom: 20px;
+  width: 80%;
+  /* justify-content: center; */
+  margin: 0 auto 15px;
+}
+.text-edit-warning {
   font-size: 13px;
   margin: auto;
   color: rgb(17, 17, 17) !important;
@@ -59,7 +66,7 @@ export default {
 .report-content {
   display: flex;
   margin: auto;
-  flex: 7;
+  flex: 6;
   /* display: flex; */
   padding: 0;
   vertical-align: middle;

@@ -18,7 +18,8 @@
             {{ mesStatus }}
           </div>
         </div>
-        <div class="log-footer" style="flex: 3;">
+        <div class="mess-line"></div>
+        <div class="log-footer" style="flex: 3 1 0%;">
           <div @click="cancelLog">Huỷ</div>
         </div>
       </div>
@@ -40,6 +41,14 @@ export default {
 };
 </script>
 <style scope>
+.mess-line {
+  height: 1px;
+  background: #b8bcc3;
+  margin-bottom: 20px;
+  width: 80%;
+  /* justify-content: center; */
+  margin: 0 auto 15px;
+}
 .log-model {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
@@ -54,7 +63,7 @@ export default {
 .log-content {
   display: flex;
   margin: auto;
-  flex: 7;
+  flex: 6;
   /* display: flex; */
   padding: 0;
   vertical-align: middle;

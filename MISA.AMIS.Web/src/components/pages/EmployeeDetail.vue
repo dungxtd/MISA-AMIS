@@ -1,5 +1,5 @@
 <template>
-  <div id="EmployeeDetail" class="dialog" >
+  <div id="EmployeeDetail" class="dialog">
     <div class="detail" title="Thông tin nhân viên">
       <div class="dialog-model"></div>
       <div class="dialog-content">
@@ -224,27 +224,30 @@ export default {
       this.isValPss = false;
     },
     //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //Date : 11/5/2021
     //Ham an vao nut xong
     btnAddEdit() {
       this.checkValCode();
       this.checkValName();
       this.checkValPss();
-      this.sttMsg = "";
-      if (this.isValCode) this.sttMsg += "Mã, ";
-      if (this.isValName) this.sttMsg += "Tên, ";
-      if (this.isValPss) this.sttMsg += "Vị trí, ";
-      this.sttMsg = this.sttMsg.substring(0, this.sttMsg.length - 2);
-      if (this.sttMsg != "") this.sttMsg += " không được để trống.";
+      // this.sttMsg = "";
+      // if (this.isValCode) this.sttMsg += "mã, ";
+      // if (this.isValName) this.sttMsg += "tên, ";
+      // if (this.isValPss) this.sttMsg += "vị trí, ";
+      // this.sttMsg = this.sttMsg.substring(0, this.sttMsg.length - 2);
+      // this.sttMsg = this.sttMsg.charAt(0).toUpperCase() + this.sttMsg.slice(1);
+      // if (this.sttMsg != "") this.sttMsg += " không được để trống.";
       if (!this.isValCode && !this.isValName && !this.isValPss) {
         console.log("connect");
         this.addEmployee();
       } else {
-        this.$emit("statusWarning");
-        this.$emit("showStatusLog", this.sttMsg);
         console.log("not connect");
       }
     },
+    /**
+     * CreatedBy: TDDUNG
+     * Date: 11/5/2021
+     */
     //Goi ipa them nhan vien
     async addEmployee() {
       var aipUrl = "https://localhost:44368/api/v1/Employees/";
@@ -288,6 +291,10 @@ export default {
           });
       }
     },
+    /**
+     * CreatedBy: TDDUNG
+     * Date: 11/5/2021
+     */
     /* Kiểm tra input của ô employee code */
     checkValCode() {
       if (this.employee.employeeCode == "") {
@@ -295,7 +302,7 @@ export default {
       } else this.isValCode = false;
     },
     //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //Date : 11/5/2021
     /* Kiểm tra input của ô employee code */
     checkValName() {
       if (
@@ -305,6 +312,10 @@ export default {
         this.isValName = true;
       } else this.isValName = false;
     },
+    /**
+     * CreatedBy: TDDUNG
+     * Date: 11/5/2021
+     */
     /* Kiểm tra input của ô employee code */
     checkValPss() {
       if (this.employee.departmentId == undefined) {
@@ -313,7 +324,7 @@ export default {
     },
   },
   //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+  //Date : 11/5/2021
   data() {
     return {
       isValCode: false, // Biến báo lỗi imployee code
@@ -322,8 +333,7 @@ export default {
       sttMsg: "", //Biến chứa câu thông báo lỗi
     };
   },
-  watch: {
-  },
+  watch: {},
   computed: {},
 };
 </script>
