@@ -109,7 +109,11 @@
             <option value="40">40 bản ghi trên một trang</option>
           </select>
         </div>
-        <div class="direc-page" @click="toFPage()">Đầu</div>
+        <div class="direc-page" @click="toFPage()">Trước</div>
+        <div 
+        class="nb-page" 
+        :class="{'hide-more': (isFiPage || pageIndex==2) }" 
+        @click="tranPrePage()">...</div>
         <div
           class="nb-page"
           v-bind:class="{ crrPage: isFiPage }"
@@ -117,6 +121,7 @@
         >
           {{ pageIndexTemp | formatIndexPagePre }}
         </div>
+        
         <div
           class="nb-page"
           v-bind:class="{ crrPage: isScPage }"
@@ -131,11 +136,12 @@
         >
           {{ pageIndexTemp | formatIndexPageNext }}
         </div>
-        <div class="direc-page" @click="toLPage()">Cuối</div>
+        <div class="nb-page" :class="{'hide-more': (isThPage || pageIndex==maxPage-1) }" >...</div>
+        <div class="direc-page" @click="toLPage()">Sau</div>
       </div>
     </div>
     <EmployeeDetail
-      :isShow="isShowDetail"
+      v-if="isShowDetail == true"
       :employee="employee"
       @hideDetailPageParent="hideDetailPageParent"
       :formMode="formMode"
@@ -160,7 +166,8 @@ import MoreDialog from "../dialog/More";
 import ErrorLog from "../dialog/ErrorLog";
 export default {
   name: "EmployeeList",
-
+  //CreatedBy: TDDUUNG
+  //Date : 11/5/2021
   components: {
     EmployeeDetail,
     MoreDialog,
@@ -182,6 +189,8 @@ export default {
       this.getData();
       this.getCount();
     },
+      //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     // Hàm tìm kiếm và sắp xếp page
     async getData() {
       var aipUrl =
@@ -201,6 +210,8 @@ export default {
         });
       // console.log(this.employees);
     },
+    //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     // Hàm đếm số lượng bản ghi
     async getCount() {
       var aipUrl =
@@ -224,6 +235,8 @@ export default {
       this.getCount();
     },
 
+    //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     // Hàm chuyển trang của nút đầu tiên
     fiPage() {
       if (this.maxPage > 2) {
@@ -264,6 +277,8 @@ export default {
         this.getData();
       }
     },
+      //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     // Hàm chuyển trang của nút thứ 3
     thPage() {
       if (this.maxPage > 2) {
@@ -285,6 +300,10 @@ export default {
         this.isThPage = true;
         this.getData();
       }
+    },
+    tranPrePage(){
+      this.pageIndexTemp--;
+      this.tranPage=true;
     },
     // Hàm chuyển đến trang đầu
     toFPage() {
@@ -316,6 +335,8 @@ export default {
         });
       this.isShowDetail = true;
     },
+    //CreatedBy: TDDUUNG
+    //Date : 11/5/2021
     // Ham an cua so dialog
     hideDetailPageParent() {
       this.isShowDetail = false;
@@ -350,6 +371,8 @@ export default {
       //Hiển thị dialog
       this.isShowDetail = true;
     },
+    //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     //Ham xuat ra file excel
     async exportFile() {
       var apiUrl = "https://localhost:44368/api/v1/Employees/export";
@@ -368,6 +391,8 @@ export default {
         fileLink.click();
       });
     },
+    //CreatedBy: TDDUUNG
+    //Date : 11/5/2021
     showStatusLog(sttMsg) {
       this.isShowStatusLog = true;
       this.mesStatus = sttMsg;
@@ -381,6 +406,7 @@ export default {
     hideStatusLog() {
       this.isShowStatusLog = false;
     },
+        
   },
   //
   computed: {},
@@ -402,13 +428,13 @@ export default {
       this.searchAndArrangePage();
     },
     pageIndex() {
-      if (this.maxPage > 2) {
+      if (this.maxPage > 2   ) {
         if (this.pageIndex == 1) {
           this.isFiPage = true;
           this.isScPage = false;
           this.isThPage = false;
           this.getData();
-        } else if (this.pageIndex == this.maxPage) {
+        } else if (this.pageIndex == this.maxPage ) {
           this.isFiPage = false;
           this.isScPage = false;
           this.isThPage = true;
@@ -418,9 +444,11 @@ export default {
           this.isScPage = true;
           this.isThPage = false;
           this.getData();
+          
         }
       }
     },
+
   },
 
   // Data truyền vào
@@ -443,6 +471,7 @@ export default {
       mesStatus: "", ////Bien chua cau thong bao
       statusLog: false, //Biên chứa trạng thái thông báo
       emptyData: true, //Biến theo dõi data
+      tranPage: false, //Biến theo dõi có focus vào ô hay ko
     };
   },
 };

@@ -85,6 +85,7 @@ namespace MISA.AMIS.API.Controllers
             await Task.Yield();
             var listEmployee = _employeeService.GetAll();
             var stream = new MemoryStream();
+            //ExcelPackage.LicenseContext = LicenseContext.Commercial;
             using (var package = new ExcelPackage(stream))
             {
                 var workSheet = package.Workbook.Worksheets.Add(Properties.Resources.nameExcelFile);

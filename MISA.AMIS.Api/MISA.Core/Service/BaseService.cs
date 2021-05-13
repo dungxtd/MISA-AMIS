@@ -123,9 +123,46 @@ namespace MISA.Core.Service
             return _baseRepository.Update(entity);
         }
 
-        protected virtual void ValidateUpdate(MISAEntity entity)
+        private void ValidateUpdate(MISAEntity entity)
         {
-            
+            var properties = typeof(MISAEntity).GetProperties();
+            foreach (var property in properties)
+            {
+                var requireProperies = property.GetCustomAttributes(typeof(MISARequired), true);
+                var maxLengthProperies = property.GetCustomAttributes(typeof(MISAMaxLength), true);
+                if (requireProperies.Length > 0)
+                {
+                    //Lấy giá trị
+                    var propertyValue = property.GetValue(entity);
+                    //Kiểm tra giá trị
+                    if (string.IsNullOrEmpty(propertyValue.ToString()))
+                    {
+                        var msgError = (requireProperies[0] as MISARequired).MsgError;
+                        if (string.IsNullOrEmpty(msgError))
+                        {
+                            throw new BadRequestException(property.Name + Properties.Resources.emptyErr);
+                        }
+                        throw new BadRequestException(msgError);
+                    }
+                }
+                if (maxLengthProperies.Length > 0)
+                {
+                    //Lấy giá trị
+                    var propertyValue = property.GetValue(entity);
+                    var maxLength = (maxLengthProperies[0] as MISAMaxLength).MaxLength;
+                    //Kiểm  tra giá trị
+                    if (propertyValue.ToString().Length > maxLength)
+                    {
+                        throw new BadRequestException(Properties.Resources.employeeLengthErr);
+                    }
+                }
+            }
+
+            CustomValidateUpdate(entity);
+        }
+
+        protected virtual void CustomValidateUpdate(MISAEntity entity)
+        {
         }
 
 

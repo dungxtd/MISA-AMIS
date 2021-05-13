@@ -6,7 +6,6 @@
           <div class="ic icon-edit-warning" style="margin: auto 0;"></div>
           <div
             class="text-edit-warning"
-            style="font-size: 13px;margin: auto; color:#111 !important;"
           >
             Bạn có thật sự muốn xoá nhân viên {{ codeDelete }} không ?
           </div>
@@ -38,6 +37,14 @@ export default {
 </script>
 
 <style scope>
+.text-edit-warning{
+  font-size: 13px;
+  margin: auto;
+  color: rgb(17, 17, 17) !important;
+  width: 254px;
+  padding-left: 20px;
+  font-weight: 100 !important;
+}
 .report-model {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);

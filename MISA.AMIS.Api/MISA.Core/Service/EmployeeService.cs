@@ -58,7 +58,7 @@ namespace MISA.Core.Service
         /// Hàm validate cho sửa nhân viên
         /// </summary>
         /// <param name="entity"></param>
-        protected override void ValidateUpdate(Employee entity)
+        protected override void CustomValidateUpdate(Employee entity)
         {
             var isExist = _employeeRepository.CheckEmployeeCodeExitsUpdate(entity.EmployeeCode, entity.EmployeeId);
             if (isExist.Single())

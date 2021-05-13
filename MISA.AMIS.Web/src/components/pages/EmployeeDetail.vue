@@ -1,5 +1,5 @@
 <template>
-  <div id="EmployeeDetail" class="dialog" :class="{ 'dialog-hide': !isShow }">
+  <div id="EmployeeDetail" class="dialog" >
     <div class="detail" title="Thông tin nhân viên">
       <div class="dialog-model"></div>
       <div class="dialog-content">
@@ -36,6 +36,7 @@
                       style="width: 95%"
                       v-bind:class="{ error: isValCode }"
                       v-on:blur="checkValCode"
+                      ref="code"
                     />
                     <div class="warning-text">Mã không được để trống.</div>
                   </div>
@@ -50,7 +51,6 @@
                       v-model="employee.employeeName"
                       v-bind:class="{ error: isValName }"
                       v-on:blur="checkValName"
-                      ref="search"
                     />
                     <div class="warning-text">Tên không được để trống.</div>
                   </div>
@@ -211,7 +211,6 @@ import axios from "axios";
 export default {
   components: {},
   props: {
-    isShow: { type: Boolean, default: false },
     employee: { type: Object, default: Object.create(null) },
     formMode: { type: String, default: "" },
     statusLog: { type: Boolean, default: false },
@@ -224,6 +223,8 @@ export default {
       this.isValName = false;
       this.isValPss = false;
     },
+    //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     //Ham an vao nut xong
     btnAddEdit() {
       this.checkValCode();
@@ -265,6 +266,8 @@ export default {
             this.$emit("showStatusLog", err.response.data.devMsg);
           });
       }
+      //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
       // Goi api sua nhan vien
       else {
         await axios
@@ -291,6 +294,8 @@ export default {
         this.isValCode = true;
       } else this.isValCode = false;
     },
+    //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
     /* Kiểm tra input của ô employee code */
     checkValName() {
       if (
@@ -307,6 +312,8 @@ export default {
       } else this.isValPss = false;
     },
   },
+  //CreatedBy: TDDUUNG
+      //Date : 11/5/2021
   data() {
     return {
       isValCode: false, // Biến báo lỗi imployee code
@@ -315,7 +322,8 @@ export default {
       sttMsg: "", //Biến chứa câu thông báo lỗi
     };
   },
-  watch: {},
+  watch: {
+  },
   computed: {},
 };
 </script>
