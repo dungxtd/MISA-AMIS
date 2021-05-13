@@ -15,7 +15,8 @@ namespace MISA.AMIS.API.Controllers
     [Route("api/v1/[controller]s")]
     [ApiController]
     public class EmployeeController : BaseController<Employee>
-    {   
+    {
+        #region Khai báo niến toàn cục và ctor
         IEmployeeService _employeeService;
         IDepartmentService _departmentService;
         public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService) : base(employeeService)
@@ -23,6 +24,8 @@ namespace MISA.AMIS.API.Controllers
             _employeeService = employeeService;
             _departmentService = departmentService;
         }
+        #endregion
+
         #region API chia trang bằng filter
         /// <summary>
         /// Hàm chia trang bằng filter
@@ -31,6 +34,8 @@ namespace MISA.AMIS.API.Controllers
         /// <param name="pageSize"></param>
         /// <param name="filter"></param>
         /// <returns>response</returns>
+        /// StatusCode: 400 - Dữ kiệu đầu vào không hợp lệ
+        /// StatusCode: 500 - Có lỗi xảy ra phía server (exception,...)
         /// Created: TDDung
         /// Date: 10/5/2021
         [HttpGet("paging")]
@@ -53,7 +58,8 @@ namespace MISA.AMIS.API.Controllers
         /// Hàm đếm bản ghi
         /// </summary>
         /// <param name="filter"></param>
-        /// <returns></returns>
+        /// StatusCode: 400 - Dữ kiệu đầu vào không hợp lệ
+        /// StatusCode: 500 - Có lỗi xảy ra phía server (exception,...)
         /// Created: TDDung
         /// Date: 10/5/2021
         [HttpGet("count-paging")]
@@ -69,13 +75,14 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
-#endregion
+        #endregion
 
         #region API xuất file excel
         /// <summary>
         /// Hàm xuất ra file excel
         /// </summary>
         /// <returns></returns>
+        /// StatusCode: 500 - Có lỗi xảy ra phía server (exception,...)
         /// Created: TDDung
         /// Date: 10/5/2021
         [HttpGet("export")]
@@ -158,6 +165,7 @@ namespace MISA.AMIS.API.Controllers
         /// Hàm lấy bản ghi lớn nhất
         /// </summary>
         /// <returns></returns>
+        /// StatusCode: 500 - Có lỗi xảy ra phía server (exception,...)
         /// Created: TDDung
         /// Date: 10/5/2021
         [HttpGet("getMaxCode")]

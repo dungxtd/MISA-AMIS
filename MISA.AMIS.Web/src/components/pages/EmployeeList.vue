@@ -32,16 +32,24 @@
           <thead>
             <tr>
               <th class="t-table check-box"><input type="checkbox" /></th>
-              <th class="t-table">MÃ NHÂN VIÊN</th>
-              <th class="t-table">TÊN NHÂN VIÊN</th>
-              <th class="t-table" style="text-align: center;">GIỚI TÍNH</th>
-              <th class="t-table" style="text-align: center;">NGÀY SINH</th>
-              <th class="t-table" style="text-align: center;">SỐ CMND</th>
-              <th class="t-table">CHỨC DANH</th>
-              <th class="t-table">TÊN ĐƠN VỊ</th>
-              <th class="t-table">SỐ TÀI KHOẢN</th>
-              <th class="t-table">TÊN NGÂN HÀNG</th>
-              <th class="t-table">CHI NHÁNH TK NGÂN HÀNG</th>
+              <th class="t-table" style="min-width: 100px;">MÃ NHÂN VIÊN</th>
+              <th class="t-table" style="min-width: 170px;">TÊN NHÂN VIÊN</th>
+              <th class="t-table" style="text-align: left;min-width: 70px;">
+                GIỚI TÍNH
+              </th>
+              <th class="t-table" style="text-align: center;min-width: 100px;">
+                NGÀY SINH
+              </th>
+              <th class="t-table" style="text-align: center;min-width: 100px;">
+                SỐ CMND
+              </th>
+              <th class="t-table" style="min-width: 100px;">CHỨC DANH</th>
+              <th class="t-table" style="min-width: 120px;">TÊN ĐƠN VỊ</th>
+              <th class="t-table" style="min-width: 100px;">SỐ TÀI KHOẢN</th>
+              <th class="t-table" style="min-width: 100px;">TÊN NGÂN HÀNG</th>
+              <th class="t-table" style="min-width: 100px;">
+                CHI NHÁNH TK NGÂN HÀNG
+              </th>
               <th class="t-table" style="text-align: center; border-right: 0">
                 CHỨC NĂNG
               </th>
@@ -52,7 +60,7 @@
               <td class="t-table check-box"><input type="checkbox" /></td>
               <td class="t-table">{{ employee.employeeCode }}</td>
               <td class="t-table">{{ employee.employeeName }}</td>
-              <td class="t-table" style="text-align: center;">
+              <td class="t-table" style="text-align: left;">
                 {{ employee.gender | formatGender }}
               </td>
               <td class="t-table" style="text-align: center;">
@@ -82,16 +90,21 @@
             </tr>
           </tbody>
         </table>
-        <div class="ms-pagination" style="bottom: unset; width: 2046px;" :class="{'hide-more': !emptyData}">
+        <div
+          class="ms-pagination"
+          style="bottom: unset; width: 2046px;"
+          :class="{ 'hide-more': !emptyData }"
+        >
           <div class="w-full img-wrap pb-4">
-            <img  src="https://actappg2.misacdn.net/img/bg_report_nodata.76e50bd8.svg" class="nodata-img">
-            <br><span class="nodata-text">Không có dữ liệu</span>
-            </div>
-            <th class="ms-out-right-white-30">
-              </th>
-              <th class="ms-out-right-grey-30">
-                </th>
-                </div>
+            <img
+              src="https://actappg2.misacdn.net/img/bg_report_nodata.76e50bd8.svg"
+              class="nodata-img"
+            />
+            <br /><span class="nodata-text">Không có dữ liệu</span>
+          </div>
+          <th class="ms-out-right-white-30"></th>
+          <th class="ms-out-right-grey-30"></th>
+        </div>
       </div>
     </div>
     <div class="footer-list">
@@ -109,11 +122,22 @@
             <option value="40">40 bản ghi trên một trang</option>
           </select>
         </div>
-        <div class="direc-page" @click="toFPage()">Trước</div>
-        <div 
-        class="nb-page" 
-        :class="{'hide-more': (isFiPage || pageIndex==2) }" 
-        @click="tranPrePage()">...</div>
+        <div class="direc-page" @click="toPPage()">Trước</div>
+        <div
+          class="nb-page"
+          :class="{ 'hide-more': isFiPage || !(pageIndex > 2) }"
+          @click="toFPage()"
+        >
+          1
+        </div>
+        <div
+          class="nb-page"
+          :class="{
+            'hide-more': isFiPage || !(pageIndex > 3),
+          }"
+        >
+          ...
+        </div>
         <div
           class="nb-page"
           v-bind:class="{ crrPage: isFiPage }"
@@ -121,7 +145,7 @@
         >
           {{ pageIndexTemp | formatIndexPagePre }}
         </div>
-        
+
         <div
           class="nb-page"
           v-bind:class="{ crrPage: isScPage }"
@@ -136,8 +160,20 @@
         >
           {{ pageIndexTemp | formatIndexPageNext }}
         </div>
-        <div class="nb-page" :class="{'hide-more': (isThPage || pageIndex==maxPage-1) }" >...</div>
-        <div class="direc-page" @click="toLPage()">Sau</div>
+        <div
+          class="nb-page"
+          :class="{ 'hide-more': isThPage || !(pageIndex < maxPage - 2) }"
+        >
+          ...
+        </div>
+        <div
+          class="nb-page"
+          :class="{ 'hide-more': isThPage || !(pageIndex < maxPage - 1) }"
+          @click="toLPage()"
+        >
+          {{ maxPage }}
+        </div>
+        <div class="direc-page" @click="toNPage()">Sau</div>
       </div>
     </div>
     <EmployeeDetail
@@ -148,6 +184,7 @@
       @showStatusLog="showStatusLog"
       @statusSuccess="statusSuccess"
       @statusWarning="statusWarning"
+      :inputFocus="inputFocus"
     />
     <!-- :showStatusLog="showStatusLog"
       :mesStatus="mesStatus" -->
@@ -189,8 +226,8 @@ export default {
       this.getData();
       this.getCount();
     },
-      //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //CreatedBy: TDDUUNG
+    //Date : 11/5/2021
     // Hàm tìm kiếm và sắp xếp page
     async getData() {
       var aipUrl =
@@ -198,7 +235,8 @@ export default {
         this.pageIndex +
         "&pageSize=" +
         this.pageSize;
-      if (this.inputFilter != String.Empty) aipUrl += "&filter=" + this.inputFilter;
+      if (this.inputFilter != String.Empty)
+        aipUrl += "&filter=" + this.inputFilter;
       console.log(this.pageSize);
       await axios
         .get(aipUrl)
@@ -211,7 +249,7 @@ export default {
       // console.log(this.employees);
     },
     //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //Date : 11/5/2021
     // Hàm đếm số lượng bản ghi
     async getCount() {
       var aipUrl =
@@ -236,7 +274,7 @@ export default {
     },
 
     //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //Date : 11/5/2021
     // Hàm chuyển trang của nút đầu tiên
     fiPage() {
       if (this.maxPage > 2) {
@@ -277,8 +315,8 @@ export default {
         this.getData();
       }
     },
-      //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //CreatedBy: TDDUUNG
+    //Date : 11/5/2021
     // Hàm chuyển trang của nút thứ 3
     thPage() {
       if (this.maxPage > 2) {
@@ -301,10 +339,6 @@ export default {
         this.getData();
       }
     },
-    tranPrePage(){
-      this.pageIndexTemp--;
-      this.tranPage=true;
-    },
     // Hàm chuyển đến trang đầu
     toFPage() {
       this.pageIndex = 1;
@@ -314,6 +348,30 @@ export default {
     toLPage() {
       this.pageIndex = this.maxPage;
       this.pageIndexTemp = this.maxPage - 1;
+    },
+    toNPage() {
+      if (this.pageIndex == 1) {
+        this.pageIndex = 2;
+        this.pageIndexTemp = 2;
+      } else if (this.pageIndex == this.maxPage - 1) {
+        this.pageIndex = this.maxPage;
+        this.pageIndexTemp = this.maxPage - 1;
+      } else if (this.pageIndex > 1 && this.pageIndex < this.maxPage - 1) {
+        this.pageIndex++;
+        this.pageIndexTemp++;
+      }
+    },
+    toPPage() {
+      if (this.pageIndex == 2) {
+        this.pageIndex = 1;
+        this.pageIndexTemp = 2;
+      } else if (this.pageIndex == this.maxPage) {
+        this.pageIndex = this.maxPage - 1;
+        this.pageIndexTemp = this.maxPage - 1;
+      } else if (this.pageIndex > 2 && this.pageIndex < this.maxPage) {
+        this.pageIndex--;
+        this.pageIndexTemp--;
+      }
     },
     //Ham lay so ban ghi lon nhat va hien cua so them
     async showPopupDetailParent() {
@@ -334,12 +392,14 @@ export default {
           console.log(err);
         });
       this.isShowDetail = true;
+      this.inputFocus = true;
     },
     //CreatedBy: TDDUUNG
     //Date : 11/5/2021
     // Ham an cua so dialog
     hideDetailPageParent() {
       this.isShowDetail = false;
+      this.inputFocus = false;
       this.getData();
     },
     //Ham lay thong tin nhan vien dua len form sua
@@ -370,9 +430,10 @@ export default {
       this.formMode = "edit";
       //Hiển thị dialog
       this.isShowDetail = true;
+      this.inputFocus = true;
     },
     //CreatedBy: TDDUUNG
-      //Date : 11/5/2021
+    //Date : 11/5/2021
     //Ham xuat ra file excel
     async exportFile() {
       var apiUrl = "https://localhost:44368/api/v1/Employees/export";
@@ -406,7 +467,6 @@ export default {
     hideStatusLog() {
       this.isShowStatusLog = false;
     },
-        
   },
   //
   computed: {},
@@ -416,25 +476,24 @@ export default {
     inputFilter() {
       if (this.inputFilter != String.Empty) {
         this.searchAndArrangePage();
-        }
+      }
     },
     employees() {
-      if(this.employees.length == 0){
+      if (this.employees.length == 0) {
         this.emptyData = true;
-      }
-      else this.emptyData = false;
+      } else this.emptyData = false;
     },
     pageSize() {
       this.searchAndArrangePage();
     },
     pageIndex() {
-      if (this.maxPage > 2   ) {
+      if (this.maxPage > 2) {
         if (this.pageIndex == 1) {
           this.isFiPage = true;
           this.isScPage = false;
           this.isThPage = false;
           this.getData();
-        } else if (this.pageIndex == this.maxPage ) {
+        } else if (this.pageIndex == this.maxPage) {
           this.isFiPage = false;
           this.isScPage = false;
           this.isThPage = true;
@@ -444,11 +503,9 @@ export default {
           this.isScPage = true;
           this.isThPage = false;
           this.getData();
-          
         }
       }
     },
-
   },
 
   // Data truyền vào
@@ -472,6 +529,7 @@ export default {
       statusLog: false, //Biên chứa trạng thái thông báo
       emptyData: true, //Biến theo dõi data
       tranPage: false, //Biến theo dõi có focus vào ô hay ko
+      inputFocus: false, //
     };
   },
 };
@@ -494,16 +552,20 @@ export default {
 .hide-more {
   display: none;
 }
-.nodata-img{    
-position: sticky;
-margin: 50px 50px 30px;
-width: 132px;
-height: 74px;
-left: 45%;
-    }
+.nodata-img {
+  position: sticky;
+  margin: 50px 50px 30px;
+  width: 132px;
+  height: 74px;
+  left: 45%;
+}
 .nodata-text {
-position: sticky;
-left: 44%;
-padding-left: 20px;
+  position: sticky;
+  left: 44%;
+  padding-left: 20px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
 }
 </style>

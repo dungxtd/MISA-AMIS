@@ -12,6 +12,7 @@ namespace MISA.Core.Service
 {
     public class BaseService<MISAEntity> : IBaseService<MISAEntity> where MISAEntity : class
     {
+        #region Khai báo biến toàn cục và ctor
         IBaseRepository<MISAEntity> _baseRepository;
         /// <summary>
         /// Cóntructer
@@ -23,6 +24,9 @@ namespace MISA.Core.Service
         {
             _baseRepository = baseRepository;
         }
+        #endregion
+
+        #region service lấy tất cả bản ghi
         /// <summary>
         /// Hàm lấy tất cả bản ghi
         /// </summary>
@@ -33,6 +37,9 @@ namespace MISA.Core.Service
         {
             return _baseRepository.GetAll();
         }
+        #endregion
+
+        #region Service lấy bản ghi theo id
         /// <summary>
         /// Hàm lấy bản ghi theo id
         /// </summary>
@@ -44,6 +51,9 @@ namespace MISA.Core.Service
         {
             return _baseRepository.GetById(entityId);
         }
+        #endregion
+
+        #region Service thêm bản ghi
         /// <summary>
         /// Hàm thêm bản ghi
         /// </summary>
@@ -56,6 +66,7 @@ namespace MISA.Core.Service
             Validate(entity);
             return _baseRepository.Insert((entity));
         }
+        #endregion
 
         #region Hàm validate chung
         /// <summary>
@@ -103,6 +114,8 @@ namespace MISA.Core.Service
             CustomValidate(entity);
         }
         #endregion
+
+        #region Hàm validate để employee service overrite
         /// <summary>
         /// Hàm custome vatlidate
         /// </summary>
@@ -111,7 +124,9 @@ namespace MISA.Core.Service
         {
 
         }
+        #endregion
 
+        #region Hàm sửa
         /// <summary>
         /// Service sửa
         /// </summary>
@@ -122,7 +137,9 @@ namespace MISA.Core.Service
             ValidateUpdate(entity);
             return _baseRepository.Update(entity);
         }
+        #endregion
 
+        #region Hàm validate sửa
         private void ValidateUpdate(MISAEntity entity)
         {
             var properties = typeof(MISAEntity).GetProperties();
@@ -160,12 +177,19 @@ namespace MISA.Core.Service
 
             CustomValidateUpdate(entity);
         }
+        #endregion
 
+        #region Hàm validate sửa để cho employee service ghi đè
+        /// <summary>
+        /// Hàm validate sửa để cho employee service ghi đè
+        /// </summary>
+        /// <param name="entity"></param>
         protected virtual void CustomValidateUpdate(MISAEntity entity)
         {
         }
+        #endregion
 
-
+        #region Hàm xoá
         /// <summary>
         /// Service xoá
         /// </summary>
@@ -175,5 +199,6 @@ namespace MISA.Core.Service
         {
             return _baseRepository.Delete(entityId);
         }
+        #endregion
     }
 }

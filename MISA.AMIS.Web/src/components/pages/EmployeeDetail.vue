@@ -36,7 +36,7 @@
                       style="width: 95%"
                       v-bind:class="{ error: isValCode }"
                       v-on:blur="checkValCode"
-                      ref="code"
+                      ref="employeeCode"
                     />
                     <div class="warning-text">Mã không được để trống.</div>
                   </div>
@@ -194,6 +194,7 @@
             </div>
           </div>
         </div>
+        <div class="divide"></div>
         <div class="dialog-footer">
           <div class="cancel-botton" @click="hideDetailPage()">Huỷ</div>
           <div class="flex">
@@ -210,10 +211,15 @@ import axios from "axios";
 
 export default {
   components: {},
+  created() {
+    this.$nextTick(() => this.$refs.employeeCode.focus());
+    console.log("íahdjjasdajsdk");
+  },
   props: {
     employee: { type: Object, default: Object.create(null) },
     formMode: { type: String, default: "" },
     statusLog: { type: Boolean, default: false },
+    inputFocus: { type: Boolean, default: false },
   },
   methods: {
     //Ham an vao nut thoat
@@ -333,7 +339,14 @@ export default {
       sttMsg: "", //Biến chứa câu thông báo lỗi
     };
   },
-  watch: {},
+  watch: {
+    inputFocus() {
+      if (this.inputFocus) {
+        this.$nextTick(() => this.$refs.employeeCode.focus());
+        console.log("íahdjjasdajsdk");
+      }
+    },
+  },
   computed: {},
 };
 </script>

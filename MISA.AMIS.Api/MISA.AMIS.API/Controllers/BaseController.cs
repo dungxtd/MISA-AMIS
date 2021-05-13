@@ -9,13 +9,15 @@ namespace MISA.AMIS.API.Controllers
 {
     public class BaseController<MISAEntity> : ControllerBase where MISAEntity : class
     {
+        #region Khai báo biến toàn cục và ctor
         IBaseService<MISAEntity> _baseService;
-
         public BaseController(IBaseService<MISAEntity> baseService)
         {
             _baseService = baseService;
         }
+        #endregion
 
+        #region API lấu toàn bộ dối tọwng
         /// <summary>
         /// Lấy toàn bộ dữ liệu đối tượng
         /// </summary>
@@ -35,8 +37,9 @@ namespace MISA.AMIS.API.Controllers
             }
             else return NoContent();
         }
+        #endregion
 
-
+        #region API lấy dữ liệu đối tượng theo Id
         /// <summary>
         /// Lấy dữ liệu đối tượng theo Id  
         /// </summary>
@@ -55,8 +58,9 @@ namespace MISA.AMIS.API.Controllers
             }
             else return NoContent();
         }
+        #endregion
 
-
+        #region API thêm mới đối tượng
         /// <summary>
         /// Thêm mới đối tượng
         /// </summary>
@@ -81,9 +85,9 @@ namespace MISA.AMIS.API.Controllers
                 return NoContent();
             }
         }
+        #endregion
 
-
-
+        #region API sửa thông tin đối tượng
         /// <summary>
         /// Sửa thông tin đối tượng
         /// </summary>
@@ -109,8 +113,9 @@ namespace MISA.AMIS.API.Controllers
             }
 
         }
+        #endregion
 
-
+        #region API xoá đối tượng
         /// <summary>
         /// Xoá đối tượng
         /// </summary>
@@ -130,5 +135,6 @@ namespace MISA.AMIS.API.Controllers
                 return Ok(res);
             else return NoContent();
         }
+        #endregion
     }
 }

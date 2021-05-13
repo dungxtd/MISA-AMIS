@@ -25,6 +25,12 @@
   transition: all 0.2s;
   z-index: 200;
 }
+.divide {
+  width: 95%;
+  margin: 10px auto;
+  border-top: 1px solid #e0e0e0;
+  position: relative;
+}
 .dialog-header {
   position: relative;
   height: 50px;
@@ -36,17 +42,17 @@
   justify-content: space-between;
 }
 .dialog-body {
-  padding: 0 16px 16px 16px;
+  padding: 0 16px 0px 16px;
   height: 50vh;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: auto;
 }
 .dialog-footer {
   display: flex;
   width: 100%;
   height: 60px;
-  background-color: #e9ebee;
+  background-color: #ffffff;
   border-radius: 0 0 5px 5px;
   align-items: center;
   justify-content: flex-end;

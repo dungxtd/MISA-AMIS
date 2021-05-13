@@ -20,7 +20,7 @@
         </div>
         <div class="mess-line"></div>
         <div class="log-footer" style="flex: 3 1 0%;">
-          <div @click="cancelLog">Huỷ</div>
+          <div @click="cancelLog">Đồng ý</div>
         </div>
       </div>
     </div>

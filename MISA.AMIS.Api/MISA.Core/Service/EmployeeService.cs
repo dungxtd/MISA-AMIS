@@ -12,15 +12,16 @@ namespace MISA.Core.Service
 {
     public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
-        /// <summary>
-        /// Validate
-        /// </summary>
+        #region Khai báo biến toàn cục và ctor
         IEmployeeRepository _employeeRepository;
 
         public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
+        #endregion
+
+        #region Hàm validate thêm nhân viên
         /// <summary>
         /// Hàm validate nhân viên
         /// </summary>
@@ -54,6 +55,9 @@ namespace MISA.Core.Service
 
             }
         }
+        #endregion
+
+        #region validate cho sửa nhân viên
         /// <summary>
         /// Hàm validate cho sửa nhân viên
         /// </summary>
@@ -66,6 +70,9 @@ namespace MISA.Core.Service
                 throw new BadRequestException(Properties.Resources.duplidateEmployeeCode);
             }
         }
+        #endregion
+
+        #region validate Paging
         /// <summary>
         /// Hàm validate Paging
         /// </summary>
@@ -81,6 +88,9 @@ namespace MISA.Core.Service
             var employees = _employeeRepository.GetPaging(pageIndex, pageSize, filter);
             return employees;
         }
+        #endregion
+
+        #region Hàm đếm số lượng bản ghi
         /// <summary>
         /// Hàm đếm số lượng bản ghi
         /// </summary>
@@ -93,11 +103,19 @@ namespace MISA.Core.Service
             var count = _employeeRepository.GetEmployeeCount(filter);
             return count;
         }
+        #endregion
+
+        #region Hàm lấy mã lớn nhất
+        /// <summary>
+        /// Hàm lấy mã lớn nhất
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<String> GetMaxCode()
         {
             var count = _employeeRepository.GetMaxCode();
             return count;
         }
+        #endregion
 
     }
 }
