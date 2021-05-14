@@ -23,7 +23,7 @@
             />
             <div class="ic ic-max filter-input-icon"></div>
           </div>
-          <div v-on:click="loadData()" class="ic ic-max button-refresh"></div>
+          <div @click="loadData()" class="ic ic-max button-refresh"></div>
           <div class="ic ic-max button-excel" @click="exportFile()"></div>
         </div>
       </div>
@@ -469,12 +469,24 @@ export default {
     },
   },
   //
-  computed: {},
+  computed: {
+    inputFilter: {
+      get() {
+        return this.debouncedInput;
+      },
+      set(val) {
+        if (this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+          this.debouncedInput = val;
+        }, 500);
+      }
+    }
+  },
   //
   //   Theo dõi biến
   watch: {
-    inputFilter() {
-      if (this.inputFilter != String.Empty) {
+    debouncedInput() {
+            if (this.debouncedInput != String.Empty) {
         this.searchAndArrangePage();
       }
     },
@@ -512,7 +524,7 @@ export default {
   data() {
     return {
       employees: [],
-      inputFilter: "", // Từ khoá cần tìm kiếm
+      // inputFilter: "", // Từ khoá cần tìm kiếm
       pageSize: 10, // Số bản ghi yteen 1 trang
       pageIndex: 1, // Vị trí hiện tại cảu page
       pageIndexTemp: 0, //Biến để hiển thị số trang
@@ -530,6 +542,7 @@ export default {
       emptyData: true, //Biến theo dõi data
       tranPage: false, //Biến theo dõi có focus vào ô hay ko
       inputFocus: false, //
+      debouncedInput: ''
     };
   },
 };
@@ -567,5 +580,45 @@ export default {
 ::-webkit-scrollbar {
   width: 5px;
   height: 7px;
+}
+input[type="checkbox"]
+{
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: white;
+    outline: none;
+    border: 1px solid #afafaf;
+    border-radius: 2px;
+    transition: 0.5s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+input:checked[type="checkbox"]
+{
+    border: 1px solid #2ca01c;
+    transform: rotate(90deg);
+}
+
+input[type="checkbox"]::before
+{
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url(../../assets/img/Sprites.svg);
+    background-position: -1224px -360px;
+    display: none;
+}
+
+input:checked[type="checkbox"]::before
+{
+    display: block;
+    transform: rotate(-90deg);
 }
 </style>
