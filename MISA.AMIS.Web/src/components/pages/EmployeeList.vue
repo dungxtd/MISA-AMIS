@@ -32,22 +32,22 @@
           <thead>
             <tr>
               <th class="t-table check-box"><input type="checkbox" /></th>
-              <th class="t-table" style="min-width: 100px;">MÃ NHÂN VIÊN</th>
-              <th class="t-table" style="min-width: 170px;">TÊN NHÂN VIÊN</th>
-              <th class="t-table" style="text-align: left;min-width: 70px;">
+              <th class="t-table" style="min-width: 100px">MÃ NHÂN VIÊN</th>
+              <th class="t-table" style="min-width: 170px">TÊN NHÂN VIÊN</th>
+              <th class="t-table" style="text-align: left; min-width: 70px">
                 GIỚI TÍNH
               </th>
-              <th class="t-table" style="text-align: center;min-width: 100px;">
+              <th class="t-table" style="text-align: center; min-width: 100px">
                 NGÀY SINH
               </th>
-              <th class="t-table" style="text-align: center;min-width: 100px;">
+              <th class="t-table" style="text-align: center; min-width: 100px">
                 SỐ CMND
               </th>
-              <th class="t-table" style="min-width: 100px;">CHỨC DANH</th>
-              <th class="t-table" style="min-width: 120px;">TÊN ĐƠN VỊ</th>
-              <th class="t-table" style="min-width: 100px;">SỐ TÀI KHOẢN</th>
-              <th class="t-table" style="min-width: 100px;">TÊN NGÂN HÀNG</th>
-              <th class="t-table" style="min-width: 100px;">
+              <th class="t-table" style="min-width: 100px">CHỨC DANH</th>
+              <th class="t-table" style="min-width: 120px">TÊN ĐƠN VỊ</th>
+              <th class="t-table" style="min-width: 100px">SỐ TÀI KHOẢN</th>
+              <th class="t-table" style="min-width: 100px">TÊN NGÂN HÀNG</th>
+              <th class="t-table" style="min-width: 100px">
                 CHI NHÁNH TK NGÂN HÀNG
               </th>
               <th class="t-table" style="text-align: center; border-right: 0">
@@ -60,13 +60,13 @@
               <td class="t-table check-box"><input type="checkbox" /></td>
               <td class="t-table">{{ employee.employeeCode }}</td>
               <td class="t-table">{{ employee.employeeName }}</td>
-              <td class="t-table" style="text-align: left;">
+              <td class="t-table" style="text-align: left">
                 {{ employee.gender | formatGender }}
               </td>
-              <td class="t-table" style="text-align: center;">
+              <td class="t-table" style="text-align: center">
                 {{ employee.dateOfBirth | formatDate }}
               </td>
-              <td class="t-table" style="text-align: center;">
+              <td class="t-table" style="text-align: center">
                 {{ employee.identityNumber }}
               </td>
               <td class="t-table">{{ employee.employeePosition }}</td>
@@ -92,7 +92,7 @@
         </table>
         <div
           class="ms-pagination"
-          style="bottom: unset; width: 2046px;"
+          style="bottom: unset; width: 2046px"
           :class="{ 'hide-more': !emptyData }"
         >
           <div class="w-full img-wrap pb-4">
@@ -108,9 +108,9 @@
       </div>
     </div>
     <div class="footer-list">
-      <div class="left-footer" style="display: flex;">
+      <div class="left-footer" style="display: flex">
         Tổng số :
-        <div style="font-weight: bold; margin: 0 4px;">{{ count }}</div>
+        <div style="font-weight: bold; margin: 0 4px">{{ count }}</div>
         bản ghi
       </div>
       <div class="right-footer">
@@ -479,14 +479,14 @@ export default {
         this.timeout = setTimeout(() => {
           this.debouncedInput = val;
         }, 500);
-      }
-    }
+      },
+    },
   },
   //
   //   Theo dõi biến
   watch: {
     debouncedInput() {
-            if (this.debouncedInput != String.Empty) {
+      if (this.debouncedInput != String.Empty) {
         this.searchAndArrangePage();
       }
     },
@@ -542,7 +542,7 @@ export default {
       emptyData: true, //Biến theo dõi data
       tranPage: false, //Biến theo dõi có focus vào ô hay ko
       inputFocus: false, //
-      debouncedInput: ''
+      debouncedInput: "",
     };
   },
 };
@@ -581,44 +581,40 @@ export default {
   width: 5px;
   height: 7px;
 }
-input[type="checkbox"]
-{
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    appearance: none;
-    -webkit-appearance: none;
-    background: white;
-    outline: none;
-    border: 1px solid #afafaf;
-    border-radius: 2px;
-    transition: 0.5s;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: white;
+  outline: none;
+  border: 1px solid #afafaf;
+  border-radius: 2px;
+  transition: 0.5s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
-input:checked[type="checkbox"]
-{
-    border: 1px solid #2ca01c;
-    transform: rotate(90deg);
+input:checked[type="checkbox"] {
+  border: 1px solid #2ca01c;
+  transform: rotate(90deg);
 }
 
-input[type="checkbox"]::before
-{
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: url(../../assets/img/Sprites.svg);
-    background-position: -1224px -360px;
-    display: none;
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: url(../../assets/img/Sprites.svg);
+  background-position: -1224px -360px;
+  display: none;
 }
 
-input:checked[type="checkbox"]::before
-{
-    display: block;
-    transform: rotate(-90deg);
+input:checked[type="checkbox"]::before {
+  display: block;
+  transform: rotate(-90deg);
 }
 </style>

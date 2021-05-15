@@ -1,21 +1,21 @@
 <template>
   <div>
-    <!-- <EmployeeList /> -->
-    <Combobox />
+    <EmployeeList />
+    <!-- <Combobox /> -->
   </div>
 </template>
 
 <script>
-// import EmployeeList from "../pages/EmployeeList";
-import Combobox from "../common/combobox";
+import EmployeeList from "../pages/EmployeeList";
+// import Combobox from "../common/combobox";
 export default {
   name: "Content",
   data() {
     return {};
   },
   components: {
-    // EmployeeList,
-    Combobox,
+    EmployeeList,
+    // Combobox,
   },
   methods: {},
 };
