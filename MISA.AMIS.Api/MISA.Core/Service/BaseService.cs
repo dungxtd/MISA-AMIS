@@ -89,15 +89,15 @@ namespace MISA.Core.Service
                     //Lấy giá trị
                     var propertyValue = property.GetValue(entity);
                     //Kiểm tra giá trị
-                    if (string.IsNullOrEmpty(propertyValue.ToString()))
-                    {
-                        var msgError = (requireProperies[0] as MISARequired).MsgError;
-                        if (string.IsNullOrEmpty(msgError))
-                        {
-                            throw new BadRequestException(property.Name + Properties.Resources.emptyErr);
-                        }
-                        throw new BadRequestException(msgError);
-                    }
+                    //if (string.IsNullOrEmpty(propertyValue.ToString()))
+                    //{
+                    //    var msgError = (requireProperies[0] as MISARequired).MsgError;
+                    //    if (string.IsNullOrEmpty(msgError))
+                    //    {
+                    //        throw new BadRequestException(property.Name + Properties.Resources.emptyErr);
+                    //    }
+                    //    throw new BadRequestException(msgError);
+                    //}
                 }
                 if (maxLengthProperies.Length > 0)
                 {
@@ -114,8 +114,6 @@ namespace MISA.Core.Service
             CustomValidate(entity);
         }
         #endregion
-
-        #region Hàm validate để employee service overrite
         /// <summary>
         /// Hàm custome vatlidate
         /// </summary>
@@ -124,7 +122,6 @@ namespace MISA.Core.Service
         {
 
         }
-        #endregion
 
         #region Hàm sửa
         /// <summary>

@@ -34,13 +34,14 @@ namespace MISA.Core.Service
             {
                 var employee = entity;
                 //Tên, mã, phòng ban khách hàng không được phép để trống
-                if (string.IsNullOrEmpty(employee.EmployeeName))
-                {
-                    throw new BadRequestException(Properties.Resources.emptyEmployeeName);
-                }
+                
                 if (string.IsNullOrEmpty(employee.EmployeeCode))
                 {
                     throw new BadRequestException(Properties.Resources.emptyEmployeeCode);
+                }
+                if (string.IsNullOrEmpty(employee.EmployeeName))
+                {
+                    throw new BadRequestException(Properties.Resources.emptyEmployeeName);
                 }
                 if (string.IsNullOrEmpty(employee.DepartmentId.ToString()))
                 {

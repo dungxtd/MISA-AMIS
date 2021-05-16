@@ -68,7 +68,7 @@ namespace MISA.Core.Entities
         ///<summary>
         ///Mã phòng ban
         /// </summary>
-        public Guid DepartmentId { get; set; }
+        public Guid? DepartmentId { get; set; }
 
         ///<summary>
         ///Tên phòng ban
